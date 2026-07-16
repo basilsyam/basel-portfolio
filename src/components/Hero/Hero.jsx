@@ -60,22 +60,16 @@ const portraitVariants = {
   hidden: {
     opacity: 0,
     scale: 1.05,
-    clipPath: "inset(0 0 100% 0)",
   },
   visible: {
     opacity: 1,
     scale: 1,
-    clipPath: "inset(0 0 0% 0)",
     transition: {
       opacity: {
         duration: 0.8,
       },
       scale: {
         duration: 1.4,
-        ease,
-      },
-      clipPath: {
-        duration: 1.2,
         ease,
       },
     },
@@ -204,6 +198,10 @@ const Hero = () => {
           <img
             src={`${process.env.PUBLIC_URL}/images/basel-hero.png`}
             alt={profile.shortName}
+            width="1672"
+            height="941"
+            loading="eager"
+            decoding="async"
             fetchPriority="high"
           />
         </picture>

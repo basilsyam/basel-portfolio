@@ -5,6 +5,7 @@ import SplitText from "../../animation/SplitText";
 import ProjectReveal from "../../animation/ProjectReveal";
 import { smoothEase } from "../../animation/variants";
 import projects from "../../data/projects";
+import OptimizedImage from "../common/OptimizedImage";
 import "./SelectedWork.css";
 
 const selectedProjects = projects.filter((project) => project.id === 4);
@@ -80,12 +81,13 @@ const SelectedWork = () => {
                 }}
               >
                 <div className="project__image-wrapper">
-                  <img
+                  <OptimizedImage
                     className="project__image"
                     src={project.image}
                     alt={`${project.title} preview`}
+                    width="1600"
+                    height="900"
                     loading="lazy"
-                    decoding="async"
                   />
 
                   <motion.span

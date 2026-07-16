@@ -51,7 +51,7 @@
   inset: -3% 0 0;
   overflow: hidden;
   pointer-events: none;
-  will-change: transform, opacity, clip-path;
+  will-change: transform, opacity;
 }
 
 .hero__portrait picture {

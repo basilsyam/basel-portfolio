@@ -8,6 +8,7 @@ import {
 import { Link } from "react-router-dom";
 import { profile, calculateAge } from "../data/profile";
 import ContactCTA from "../components/ContactCTA/ContactCTA";
+import OptimizedImage from "../components/common/OptimizedImage";
 
 import SplitText from "../animation/SplitText";
 import { smoothEase } from "../animation/variants";
@@ -198,11 +199,12 @@ const About = () => {
             }}
           >
             <div className="about-story__placeholder">
-              <img
+              <OptimizedImage
                 src={`${process.env.PUBLIC_URL}/images/basel-hero.png`}
                 alt={profile.shortName}
+                width="1672"
+                height="941"
                 loading="lazy"
-                decoding="async"
               />
             </div>
           </motion.div>

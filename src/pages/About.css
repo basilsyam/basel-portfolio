@@ -144,6 +144,7 @@
 .about-story__visual {
   position: relative;
   width: 100%;
+  aspect-ratio: 1672 / 941;
   height: auto;
   min-height: 0;
   padding: 0;
@@ -155,6 +156,11 @@
   box-shadow: 0 30px 70px rgba(32, 33, 36, 0.1);
   line-height: 0;
   transition: transform 300ms ease, box-shadow 300ms ease;
+}
+
+.about-story__placeholder .optimized-image__container,
+.about-story__visual .optimized-image__container {
+  border-radius: inherit;
 }
 
 .about-story__placeholder:hover,
@@ -635,6 +641,7 @@
   .about-story__placeholder,
   .about-story__visual {
     width: 100%;
+    aspect-ratio: 1672 / 941;
     height: auto;
     min-height: 0;
     padding: 0;

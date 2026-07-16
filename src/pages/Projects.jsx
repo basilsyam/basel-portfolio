@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { smoothEase } from "../animation/variants";
 import { projectFilters } from "../config/site";
 import projects from "../data/projects";
+import OptimizedImage from "../components/common/OptimizedImage";
 import "./Projects.css";
 
 const containerVariants = {
@@ -153,10 +154,12 @@ const Projects = () => {
                         ease: smoothEase,
                       }}
                     >
-                      <img
+                      <OptimizedImage
                         src={project.image}
                         alt={`${project.title} preview`}
                         className="project-card__image"
+                        width="1600"
+                        height="900"
                         loading="lazy"
                       />
 
