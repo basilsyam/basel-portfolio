@@ -1,13 +1,29 @@
 {
   "files": {
-    "main.css": "/basel-portfolio/static/css/main.3aa17e1a.css",
-    "main.js": "/basel-portfolio/static/js/main.daaeae76.js",
+    "main.css": "/basel-portfolio/static/css/main.24da1d66.css",
+    "main.js": "/basel-portfolio/static/js/main.2460b3d5.js",
+    "static/css/453.7e42fd86.chunk.css": "/basel-portfolio/static/css/453.7e42fd86.chunk.css",
+    "static/js/453.2b3301aa.chunk.js": "/basel-portfolio/static/js/453.2b3301aa.chunk.js",
+    "static/css/677.55da784f.chunk.css": "/basel-portfolio/static/css/677.55da784f.chunk.css",
+    "static/js/677.48e4533c.chunk.js": "/basel-portfolio/static/js/677.48e4533c.chunk.js",
+    "static/css/978.6784c461.chunk.css": "/basel-portfolio/static/css/978.6784c461.chunk.css",
+    "static/js/978.10a241ad.chunk.js": "/basel-portfolio/static/js/978.10a241ad.chunk.js",
+    "static/css/726.5816d4bf.chunk.css": "/basel-portfolio/static/css/726.5816d4bf.chunk.css",
+    "static/js/726.09f80e70.chunk.js": "/basel-portfolio/static/js/726.09f80e70.chunk.js",
     "index.html": "/basel-portfolio/index.html",
-    "main.3aa17e1a.css.map": "/basel-portfolio/static/css/main.3aa17e1a.css.map",
-    "main.daaeae76.js.map": "/basel-portfolio/static/js/main.daaeae76.js.map"
+    "main.24da1d66.css.map": "/basel-portfolio/static/css/main.24da1d66.css.map",
+    "main.2460b3d5.js.map": "/basel-portfolio/static/js/main.2460b3d5.js.map",
+    "453.7e42fd86.chunk.css.map": "/basel-portfolio/static/css/453.7e42fd86.chunk.css.map",
+    "453.2b3301aa.chunk.js.map": "/basel-portfolio/static/js/453.2b3301aa.chunk.js.map",
+    "677.55da784f.chunk.css.map": "/basel-portfolio/static/css/677.55da784f.chunk.css.map",
+    "677.48e4533c.chunk.js.map": "/basel-portfolio/static/js/677.48e4533c.chunk.js.map",
+    "978.6784c461.chunk.css.map": "/basel-portfolio/static/css/978.6784c461.chunk.css.map",
+    "978.10a241ad.chunk.js.map": "/basel-portfolio/static/js/978.10a241ad.chunk.js.map",
+    "726.5816d4bf.chunk.css.map": "/basel-portfolio/static/css/726.5816d4bf.chunk.css.map",
+    "726.09f80e70.chunk.js.map": "/basel-portfolio/static/js/726.09f80e70.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3aa17e1a.css",
-    "static/js/main.daaeae76.js"
+    "static/css/main.24da1d66.css",
+    "static/js/main.2460b3d5.js"
   ]
 }
