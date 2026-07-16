@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./OptimizedImage.css";
 
 const OptimizedImage = ({
@@ -14,9 +14,15 @@ const OptimizedImage = ({
   ...imageProps
 }) => {
   const [status, setStatus] = useState("loading");
+  const imageRef = useRef(null);
 
   useEffect(() => {
     setStatus("loading");
+
+    const image = imageRef.current;
+    if (!image?.complete) return;
+
+    setStatus(image.naturalWidth > 0 ? "loaded" : "error");
   }, [src]);
 
   const handleLoad = (event) => {
@@ -32,9 +38,11 @@ const OptimizedImage = ({
   return (
     <span
       className={`optimized-image__container optimized-image__container--${status}`}
+      data-testid="optimized-image-container"
     >
       <img
         {...imageProps}
+        ref={imageRef}
         src={src}
         alt={alt}
         className={`optimized-image ${className}`.trim()}
