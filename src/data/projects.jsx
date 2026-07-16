@@ -1,0 +1,151 @@
+const projects = [
+  {
+    id: 1,
+    number: "01",
+    title: "Arabic Tetris Game",
+    category: "Interactive Browser Game",
+    group: "Frontend",
+    description:
+      "A modern Arabic Tetris game featuring responsive controls, colorful visuals, score and level tracking, piece preview, hold functionality and an intuitive interface for desktop and mobile devices.",
+    image: `${process.env.PUBLIC_URL}/images/projects/tetris-game.png`,
+    liveUrl: "https://basilsyam.github.io/tetris/",
+    technologies: ["HTML", "CSS", "JavaScript", "Tailwind CSS"],
+    features: [
+      "Responsive keyboard and touch controls",
+      "Score, level and cleared-line tracking",
+      "Next-piece preview and hold functionality",
+      "Pause, restart and instructions controls",
+    ],
+    role: "Frontend Development & Game Logic",
+    year: "2026",
+  },
+
+  {
+    id: 2,
+    number: "02",
+    title: "GitHub Repository Explorer",
+    category: "API Integration Web Application",
+    group: "API",
+    description:
+      "A responsive GitHub repository explorer that allows users to search for GitHub profiles, browse repositories, filter projects by programming language and sort results through a modern interface.",
+    image: `${process.env.PUBLIC_URL}/images/projects/repo-explorer.png`,
+    liveUrl: "https://basilsyam.github.io/API_Integration_Assign_2/",
+    technologies: [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Bootstrap",
+      "Sass",
+      "GitHub API",
+    ],
+    features: [
+      "GitHub user and repository search",
+      "Filtering by programming language",
+      "Repository sorting by recent updates",
+      "Recent search history",
+      "Dark and light theme support",
+    ],
+    role: "Frontend Development & API Integration",
+    year: "2026",
+  },
+
+  {
+    id: 3,
+    number: "03",
+    title: "Gaza Paramedic",
+    category: "Arabic Health Information Platform",
+    group: "Frontend",
+    description:
+      "A responsive Arabic health information platform that organizes educational medical content into accessible categories, helping users quickly search and browse general health topics.",
+    image: `${process.env.PUBLIC_URL}/images/projects/gaza-paramedic.png`,
+    liveUrl: "https://basilsyam.github.io/gaza-paramedic/",
+    technologies: [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Bootstrap",
+      "Tailwind CSS",
+      "Sass",
+      "LocalStorage",
+    ],
+    features: [
+      "Arabic RTL responsive interface",
+      "Fast health-topic search",
+      "Content filtering by category",
+      "Favorite articles functionality",
+      "Dark and light theme support",
+    ],
+    role: "Frontend Development & UI Design",
+    year: "2025",
+  },
+
+  {
+    id: 4,
+    number: "04",
+    title: "Personalized Invitation System",
+    category: "Full-Stack Web Application",
+    group: "Full-Stack",
+    description:
+      "A full-stack electronic invitation platform that provides each client with a private account to manage invitees and generate personalized invitation links carrying every guest’s name.",
+    image: `${process.env.PUBLIC_URL}/images/projects/wedding-invitation.png`,
+    liveUrl: "https://wed-inv.talk4fun.net/wedding-invitation/",
+    technologies: ["HTML", "CSS", "JavaScript", "PHP", "MySQL"],
+    features: [
+      "Secure client authentication",
+      "Private invitation management dashboard",
+      "Personalized invitations for every guest",
+      "Unique invitation links",
+      "Guest name management",
+      "Responsive Arabic RTL interface",
+    ],
+    role: "Full-Stack Development & UI Design",
+    year: "2026",
+  },
+
+  {
+    id: 5,
+    number: "05",
+    title: "Smart Task Manager",
+    category: "Progressive Web Application",
+    group: "PWA",
+    description:
+      "A responsive Arabic task management PWA that helps users organize daily activities, assign priorities and deadlines, track completion progress and access saved tasks.",
+    image: `${process.env.PUBLIC_URL}/images/projects/smart-task-manager.png`,
+    liveUrl: "https://basilsyam.github.io/To-Do/",
+    technologies: ["HTML", "CSS", "JavaScript", "LocalStorage", "PWA"],
+    features: [
+      "Create tasks with descriptions and notes",
+      "Set priority, date and time",
+      "Completion progress tracking",
+      "Search and filter tasks",
+      "Persistent LocalStorage data",
+      "Installable and offline experience",
+    ],
+    role: "Frontend Development & PWA Implementation",
+    year: "2026",
+  },
+
+  {
+    id: 6,
+    number: "06",
+    title: "Symmetry Stones",
+    category: "Business & Renovation Website",
+    group: "Frontend",
+    description:
+      "A premium business website created for a renovation and stonework company, presenting its services, completed projects and craftsmanship through an elegant visual identity.",
+    image: `${process.env.PUBLIC_URL}/images/projects/symmetry-stones.png.png`,
+    liveUrl: "https://basilsyam.github.io/Symmetry-Stones/",
+    technologies: ["HTML", "CSS"],
+    features: [
+      "Premium responsive landing page",
+      "Renovation services presentation",
+      "Previous work showcase",
+      "Free quote call-to-action",
+      "Direct phone contact button",
+    ],
+    role: "Frontend Development & UI Design",
+    year: "2026",
+  },
+];
+
+export default projects;

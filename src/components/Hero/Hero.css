@@ -1,0 +1,555 @@
+/* ================= Hero ================= */
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+  color: var(--color-white);
+  background: var(--color-background);
+}
+
+.hero__parallax-background {
+  position: absolute;
+  z-index: 0;
+  inset: -40px;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      circle at 78% 24%,
+      rgba(253, 193, 42, 0.15),
+      transparent 26%
+    ),
+    linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0.08),
+      transparent 45%
+    );
+  will-change: transform;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    rgba(36, 36, 36, 0.12),
+    transparent 30%,
+    transparent 70%,
+    rgba(36, 36, 36, 0.08)
+  );
+}
+
+/* ================= Portrait ================= */
+
+.hero__portrait {
+  position: absolute;
+  z-index: 1;
+  inset: -3% 0 0;
+  overflow: hidden;
+  pointer-events: none;
+  will-change: transform, opacity, clip-path;
+}
+
+.hero__portrait picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hero__portrait img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  display: block;
+  object-fit: cover;
+  object-position: center top;
+  transform: scale(1.035);
+}
+
+/* ================= Availability ================= */
+
+.hero__availability {
+  position: absolute;
+  z-index: 5;
+  top: 120px;
+  left: 4vw;
+  min-height: 38px;
+  padding: 8px 15px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50px;
+  color: var(--color-white);
+  background: rgba(36, 36, 36, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: default;
+  user-select: none;
+  will-change: transform;
+}
+
+.hero__availability-dot {
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--color-primary);
+  box-shadow: 0 0 12px var(--color-primary);
+  animation: availabilityPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes availabilityPulse {
+  50% {
+    opacity: 0.45;
+    transform: scale(0.72);
+  }
+}
+
+/* ================= Location ================= */
+
+.hero__location {
+  position: absolute;
+  z-index: 5;
+  top: 45%;
+  left: 0;
+  width: 350px;
+  min-height: 120px;
+  padding: 20px 22px 20px 4vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-radius: 0 80px 80px 0;
+  color: var(--color-white);
+  background: rgba(36, 36, 36, 0.93);
+  box-shadow: 0 20px 45px rgba(36, 36, 36, 0.15);
+  will-change: transform;
+}
+
+.hero__location-text {
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.35;
+  white-space: nowrap;
+}
+
+.hero__globe {
+  width: 74px;
+  height: 74px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border-radius: 50%;
+  color: var(--color-text);
+  background: var(--color-primary);
+  font-size: 2.4rem;
+  transform: translateZ(0);
+}
+
+.hero__globe svg {
+  display: block;
+}
+
+/* ================= Role / Split Text ================= */
+
+.hero__role {
+  position: absolute;
+  z-index: 5;
+  top: 27%;
+  right: 7%;
+  color: var(--color-white);
+  font-size: clamp(1.5rem, 2.2vw, 2.6rem);
+  will-change: transform;
+}
+
+.hero__role p {
+  margin: 65px 0 0;
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+.hero__arrow {
+  display: block;
+  color: var(--color-primary);
+  font-size: 2.8rem;
+}
+
+.hero__split-line {
+  display: flex;
+  overflow: hidden;
+}
+
+.hero__letter-mask {
+  display: inline-block;
+  overflow: hidden;
+}
+
+.hero__letter {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* ================= Name Marquee ================= */
+
+.hero__name-wrapper {
+  position: absolute;
+  z-index: 6;
+  right: 0;
+  bottom: 2%;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.hero__name-track {
+  width: max-content;
+  display: flex;
+  align-items: center;
+  animation: heroNameMarquee 24s linear infinite;
+  will-change: transform;
+}
+
+.hero__name-group {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.hero__name {
+  display: block;
+  flex-shrink: 0;
+  padding-right: 4vw;
+  color: var(--color-white);
+  font-size: clamp(5rem, 11.5vw, 13rem);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -0.065em;
+}
+
+@keyframes heroNameMarquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-25%, 0, 0);
+  }
+}
+
+/* ================= Projects Button ================= */
+
+.hero__projects-button {
+  position: absolute;
+  z-index: 7;
+  right: 4vw;
+  bottom: 28px;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.hero__projects-link {
+  width: 112px;
+  height: 112px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 3px;
+  border-radius: 50%;
+  color: var(--color-text);
+  background: var(--color-primary);
+  box-shadow: 0 18px 45px rgba(36, 36, 36, 0.18);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 700;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition:
+    color 300ms ease,
+    background-color 300ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero__projects-link:hover {
+    color: var(--color-text);
+    background: var(--color-white);
+  }
+}
+
+/* ================= Laptop ================= */
+
+@media (max-width: 1200px) {
+  .hero__location {
+    width: 320px;
+  }
+
+  .hero__role {
+    right: 4%;
+    font-size: clamp(1.25rem, 2vw, 2rem);
+  }
+
+  .hero__name {
+    font-size: clamp(5rem, 11vw, 10rem);
+  }
+}
+
+/* ================= Tablet ================= */
+
+@media (max-width: 992px) {
+  .hero__location {
+    width: 280px;
+    min-height: 105px;
+  }
+
+  .hero__globe {
+    width: 62px;
+    height: 62px;
+    font-size: 2rem;
+  }
+
+  .hero__location-text {
+    font-size: 0.85rem;
+  }
+
+  .hero__role {
+    top: 25%;
+    right: 3%;
+    font-size: 1.2rem;
+  }
+
+  .hero__projects-link {
+    width: 94px;
+    height: 94px;
+    font-size: 0.78rem;
+  }
+}
+
+/* ================= Mobile ================= */
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: 100svh;
+  }
+
+  .hero::after {
+    background: linear-gradient(
+      180deg,
+      rgba(36, 36, 36, 0.12),
+      transparent 26%,
+      transparent 65%,
+      rgba(36, 36, 36, 0.22)
+    );
+  }
+
+  .hero__parallax-background {
+    inset: -20px;
+    opacity: 0.7;
+  }
+
+  .hero__portrait {
+    inset: -1% 0 0;
+  }
+
+  .hero__portrait img {
+    object-fit: cover;
+    object-position: center top;
+    transform: scale(1.02);
+  }
+
+  .hero__availability {
+    top: 100px;
+    left: 14px;
+    min-height: 35px;
+    padding: 7px 12px;
+    font-size: 0.76rem;
+  }
+
+  .hero__role {
+    top: 20%;
+    right: 14px;
+    max-width: 155px;
+    font-size: 0.86rem;
+  }
+
+  .hero__role p {
+    margin-top: 24px;
+    line-height: 1.3;
+  }
+
+  .hero__arrow {
+    font-size: 1.8rem;
+  }
+
+  .hero__location {
+    top: auto;
+    bottom: 22%;
+    width: 230px;
+    min-height: 88px;
+    padding: 12px 14px 12px 18px;
+    gap: 12px;
+  }
+
+  .hero__location-text {
+    font-size: 0.82rem;
+  }
+
+  .hero__globe {
+    width: 52px;
+    height: 52px;
+    font-size: 1.6rem;
+  }
+
+  .hero__name-wrapper {
+    bottom: 4%;
+  }
+
+  .hero__name-track {
+    animation-duration: 18s;
+  }
+
+  .hero__name {
+    padding-right: 25px;
+    font-size: clamp(4rem, 19vw, 7rem);
+  }
+
+  /* الزر الآن ظاهر على الجوال ويستجيب للمس */
+  .hero__projects-button {
+    right: 16px;
+    bottom: 17%;
+  }
+
+  .hero__projects-link {
+    width: 78px;
+    height: 78px;
+    font-size: 0.68rem;
+    box-shadow: 0 12px 32px rgba(36, 36, 36, 0.22);
+  }
+}
+
+/* ================= Small Mobile ================= */
+
+@media (max-width: 600px) {
+  .hero__availability {
+    top: 92px;
+    left: 12px;
+  }
+
+  .hero__role {
+    top: 19%;
+    right: 11px;
+    max-width: 140px;
+    font-size: 0.78rem;
+  }
+
+  .hero__location {
+    bottom: 21%;
+    width: 218px;
+    min-height: 82px;
+  }
+
+  .hero__location-text {
+    font-size: 0.78rem;
+  }
+
+  .hero__globe {
+    width: 48px;
+    height: 48px;
+    font-size: 1.5rem;
+  }
+
+  .hero__projects-button {
+    right: 12px;
+    bottom: 16%;
+  }
+
+  .hero__projects-link {
+    width: 72px;
+    height: 72px;
+    font-size: 0.64rem;
+  }
+
+  .hero__name {
+    font-size: clamp(4rem, 19vw, 6.5rem);
+  }
+}
+
+@media (max-width: 400px) {
+  .hero__availability {
+    top: 88px;
+    left: 10px;
+    font-size: 0.7rem;
+  }
+
+  .hero__role {
+    top: 18%;
+    right: 9px;
+    max-width: 125px;
+    font-size: 0.7rem;
+  }
+
+  .hero__role p {
+    margin-top: 18px;
+  }
+
+  .hero__arrow {
+    font-size: 1.5rem;
+  }
+
+  .hero__location {
+    bottom: 20%;
+    width: 205px;
+    min-height: 78px;
+    padding-left: 14px;
+  }
+
+  .hero__location-text {
+    font-size: 0.72rem;
+  }
+
+  .hero__projects-button {
+    right: 10px;
+    bottom: 15%;
+  }
+
+  .hero__projects-link {
+    width: 66px;
+    height: 66px;
+    font-size: 0.6rem;
+  }
+
+  .hero__name {
+    padding-right: 20px;
+    font-size: 18vw;
+  }
+}
+
+/* ================= Accessibility ================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__availability-dot,
+  .hero__name-track {
+    animation: none;
+  }
+
+  .hero__portrait,
+  .hero__role,
+  .hero__location,
+  .hero__projects-button {
+    transform: none !important;
+  }
+
+  .hero__projects-link {
+    transition: none;
+  }
+}

@@ -1,0 +1,106 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap");
+
+:root {
+  --color-background: #aba3a3c2;
+  --color-background-soft: #9c9c9c;
+  --color-background-deep: #dcdcdcc6;
+  --color-surface: rgba(255, 255, 255, 0.16);
+  --color-surface-soft: rgba(255, 255, 255, 0.72);
+  --color-primary: #f3c433;
+  --color-primary-dark: #cda736;
+  --color-dark: #17181b;
+  --color-white: #ffffff;
+  --color-text: #282601;
+  --color-muted: #051527;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Manrope", sans-serif;
+  color: var(--color-text);
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.45), transparent 28%),
+    linear-gradient(180deg, var(--color-background-soft) 0%, var(--color-background) 56%, var(--color-background-deep) 100%);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.split-text {
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+
+.split-text__word {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.split-text__mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-top: 0.12em;
+  padding-bottom: 0.16em;
+  margin-top: -0.12em;
+  margin-bottom: -0.16em;
+}
+
+.split-text__letter {
+  display: inline-block;
+  line-height: 1;
+}
+
+.split-text__space {
+  display: inline-block;
+  white-space: pre;
+}
+
+.page-container {
+  min-height: 100svh;
+  padding: 140px 6vw 80px;
+  background: var(--color-background);
+  font-size: 3rem;
+}
+
+@media (max-width: 768px) {
+  .page-container {
+    padding: 110px 20px 60px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+}

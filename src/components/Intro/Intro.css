@@ -1,0 +1,238 @@
+.intro {
+  position: relative;
+  min-height: 100svh;
+  padding: clamp(90px, 12vw, 190px) 5vw;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  color: var(--color-text);
+  background: var(--color-primary);
+}
+
+/* ================= Decoration ================= */
+
+.intro__decoration {
+  position: absolute;
+  top: -130px;
+  right: -150px;
+  width: clamp(280px, 35vw, 560px);
+  height: clamp(280px, 35vw, 560px);
+  border: 1px solid rgba(36, 36, 36, 0.15);
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.intro__decoration::before {
+  content: "";
+  position: absolute;
+  inset: 45px;
+  border: 1px solid rgba(36, 36, 36, 0.08);
+  border-radius: inherit;
+}
+
+/* ================= Content ================= */
+
+.intro__content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.intro__eyebrow {
+  margin: 0 0 35px;
+  color: rgba(36, 36, 36, 0.65);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ================= Animated Title ================= */
+
+.intro__title {
+  max-width: 1250px;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 0.22em;
+  row-gap: 0.04em;
+  color: var(--color-text);
+  font-size: clamp(2.6rem, 5.5vw, 6rem);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.055em;
+}
+
+.intro__word-mask {
+  display: inline-block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+
+.intro__word {
+  display: inline-block;
+  color: var(--color-text);
+  will-change: transform, opacity;
+}
+
+.intro__word--highlighted {
+  color: rgba(36, 36, 36, 0.48);
+}
+
+/* ================= Bottom ================= */
+
+.intro__bottom {
+  max-width: 650px;
+  margin-top: 65px;
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+.intro__description {
+  margin: 0;
+  color: rgba(36, 36, 36, 0.67);
+  font-size: clamp(1rem, 1.4vw, 1.3rem);
+  line-height: 1.7;
+}
+
+.intro__link-wrapper {
+  display: inline-flex;
+  will-change: transform;
+}
+
+.intro__link {
+  position: relative;
+  min-height: 44px;
+  padding: 8px 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--color-text);
+  text-decoration: none;
+  font-weight: 700;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* كان اللون primary وغير ظاهر فوق الخلفية الصفراء */
+
+.intro__link::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 3px;
+  left: 0;
+  height: 2px;
+  background: var(--color-text);
+  transform: scaleX(1);
+  transform-origin: left;
+  transition: transform 350ms
+    cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.intro__link-arrow {
+  display: inline-block;
+  font-size: 1.15rem;
+  will-change: transform;
+}
+
+/* Hover للكمبيوتر فقط */
+
+@media (hover: hover) and (pointer: fine) {
+  .intro__link:hover::after {
+    transform: scaleX(0);
+    transform-origin: right;
+  }
+
+  .intro__word--highlighted {
+    transition: color 350ms ease;
+  }
+
+  .intro__title:hover
+    .intro__word--highlighted {
+    color: var(--color-text);
+  }
+}
+
+/* ================= Tablet ================= */
+
+@media (max-width: 768px) {
+  .intro {
+    min-height: 100svh;
+    padding: 95px 20px 75px;
+    align-items: center;
+  }
+
+  .intro__decoration {
+    top: -70px;
+    right: -130px;
+    width: 320px;
+    height: 320px;
+  }
+
+  .intro__eyebrow {
+    margin-bottom: 25px;
+    font-size: 0.75rem;
+  }
+
+  .intro__title {
+    font-size: clamp(2.5rem, 11vw, 4.5rem);
+    line-height: 1.04;
+    column-gap: 0.2em;
+  }
+
+  .intro__bottom {
+    margin-top: 45px;
+    margin-left: 0;
+    gap: 25px;
+  }
+
+  .intro__description {
+    max-width: 560px;
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+}
+
+/* ================= Small Mobile ================= */
+
+@media (max-width: 400px) {
+  .intro {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+
+  .intro__title {
+    font-size: clamp(2.3rem, 11.5vw, 3.2rem);
+  }
+
+  .intro__description {
+    font-size: 0.94rem;
+  }
+
+  .intro__link {
+    font-size: 0.9rem;
+  }
+}
+
+/* ================= Reduced Motion ================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .intro *,
+  .intro *::before,
+  .intro *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .intro__decoration {
+    transform: none !important;
+  }
+}

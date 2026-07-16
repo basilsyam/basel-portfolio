@@ -1,0 +1,274 @@
+.contact-cta {
+  position: relative;
+  z-index: 2;
+  margin-top: -1px;
+  padding: clamp(100px, 13vw, 190px) 5vw 85px;
+  overflow: hidden;
+  color: var(--color-text);
+  background: var(--color-primary);
+  border-radius: 70px 70px 0 0;
+}
+
+/* دائرة زخرفية خفيفة */
+
+.contact-cta::before {
+  content: "";
+  position: absolute;
+  top: -170px;
+  right: -130px;
+  width: 420px;
+  height: 420px;
+  border: 1px solid rgba(36, 36, 36, 0.16);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.contact-cta::after {
+  content: "";
+  position: absolute;
+  bottom: -220px;
+  left: -150px;
+  width: 450px;
+  height: 450px;
+  border-radius: 50%;
+  background: rgba(215, 210, 203, 0.25);
+  pointer-events: none;
+}
+
+.contact-cta__container {
+  position: relative;
+  z-index: 1;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.contact-cta__content {
+  position: relative;
+}
+
+.contact-cta__eyebrow {
+  margin: 0 0 40px;
+  color: rgba(36, 36, 36, 0.65);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.contact-cta__title-wrapper {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 50px;
+}
+
+.contact-cta__title {
+  margin: 0;
+  color: var(--color-text);
+  font-size: clamp(4rem, 10vw, 10rem);
+  font-weight: 400;
+  line-height: 0.88;
+  letter-spacing: -0.07em;
+}
+
+/* زر التواصل */
+
+.contact-cta__button {
+  width: clamp(135px, 12vw, 180px);
+  height: clamp(135px, 12vw, 180px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: 6px;
+  border: 1px solid rgba(36, 36, 36, 0.15);
+  border-radius: 50%;
+  color: var(--color-text);
+  background: var(--color-background);
+  box-shadow: 0 20px 50px rgba(36, 36, 36, 0.12);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  transition:
+    color 350ms ease,
+    background-color 350ms ease,
+    transform 350ms ease,
+    box-shadow 350ms ease;
+}
+
+.contact-cta__button:hover {
+  color: var(--color-text);
+  background: var(--color-white);
+  box-shadow: 0 25px 60px rgba(36, 36, 36, 0.2);
+  transform: scale(1.08) rotate(-5deg);
+}
+
+.contact-cta__button span:last-child {
+  font-size: 1.3rem;
+  transition: transform 300ms ease;
+}
+
+.contact-cta__button:hover span:last-child {
+  transform: translate(5px, -5px);
+}
+
+/* الخط الفاصل */
+
+.contact-cta__line {
+  width: 100%;
+  height: 1px;
+  margin: 75px 0 35px;
+  background: rgba(36, 36, 36, 0.22);
+}
+
+/* الإيميل وواتساب */
+
+.contact-cta__actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.contact-cta__action {
+  min-height: 52px;
+  padding: 0 23px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid rgba(36, 36, 36, 0.35);
+  border-radius: 50px;
+  color: var(--color-text);
+  background: transparent;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition:
+    color 300ms ease,
+    border-color 300ms ease,
+    background-color 300ms ease,
+    transform 300ms ease;
+}
+
+.contact-cta__action:hover {
+  color: var(--color-text);
+  border-color: var(--color-background);
+  background: var(--color-background);
+  transform: translateY(-4px);
+}
+
+/* التابلت */
+
+@media (max-width: 992px) {
+  .contact-cta {
+    border-radius: 50px 50px 0 0;
+  }
+
+  .contact-cta__title {
+    font-size: clamp(4rem, 11vw, 8rem);
+  }
+}
+
+/* الجوال */
+
+@media (max-width: 768px) {
+  .contact-cta {
+    padding: 90px 20px 65px;
+    border-radius: 35px 35px 0 0;
+  }
+
+  .contact-cta__eyebrow {
+    margin-bottom: 30px;
+  }
+
+  .contact-cta__title-wrapper {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 45px;
+  }
+
+  .contact-cta__title {
+    font-size: clamp(4rem, 18vw, 7rem);
+  }
+
+  .contact-cta__button {
+    width: 125px;
+    height: 125px;
+    align-self: flex-end;
+  }
+
+  .contact-cta__line {
+    margin: 50px 0 28px;
+  }
+
+  .contact-cta__actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .contact-cta__action {
+    width: 100%;
+    min-height: 55px;
+    word-break: break-word;
+  }
+}
+
+/* الجوال الصغير */
+
+@media (max-width: 450px) {
+  .contact-cta {
+    padding-top: 75px;
+  }
+
+  .contact-cta__title {
+    font-size: 17vw;
+  }
+
+  .contact-cta__button {
+    width: 110px;
+    height: 110px;
+    font-size: 0.85rem;
+  }
+}
+
+.contact-cta__title-line {
+  display: block;
+}
+
+.contact-cta__title-line .split-text {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.contact-cta__button-wrapper {
+  flex-shrink: 0;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.contact-cta__button,
+.contact-cta__action {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.contact-cta__button-arrow {
+  display: inline-block;
+  will-change: transform;
+}
+
+.contact-cta__line {
+  transform-origin: left;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-cta *,
+  .contact-cta *::before,
+  .contact-cta *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}
