@@ -32,14 +32,13 @@ const curtainVariants = {
   initial: {
     scaleY: 1,
     transformOrigin: "top",
-    pointerEvents: "auto",
+    pointerEvents: "none",
   },
   enter: {
     scaleY: 0,
     transformOrigin: "top",
     transition: {
-      duration: 0.5,
-      delay: 0.16,
+      duration: 0.38,
       ease: curtainEase,
     },
     transitionEnd: {
@@ -49,9 +48,9 @@ const curtainVariants = {
   exit: {
     scaleY: 1,
     transformOrigin: "bottom",
-    pointerEvents: "auto",
+    pointerEvents: "none",
     transition: {
-      duration: 0.48,
+      duration: 0.32,
       ease: curtainEase,
     },
   },
@@ -67,7 +66,7 @@ const labelVariants = {
     y: -8,
     transition: {
       duration: 0.2,
-      delay: 0.62,
+      delay: 0.68,
       ease: smoothEase,
     },
   },
