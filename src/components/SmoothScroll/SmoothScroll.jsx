@@ -28,19 +28,20 @@ const SmoothScroll = ({ children }) => {
       lenis = new Lenis({
         autoRaf: true,
 
-        duration: 1.05,
+        duration: 0.72,
 
         smoothWheel: true,
 
-        wheelMultiplier: 0.9,
+        wheelMultiplier: 1,
 
         // نحافظ على اللمس الطبيعي في الجوال
         syncTouch: false,
 
         touchMultiplier: 1,
 
-        // تفعيل روابط #about و #projects
-        anchors: true,
+        // HashRouter owns URLs such as #/services. Lenis must not treat them
+        // as in-page element selectors.
+        anchors: false,
       });
     };
 

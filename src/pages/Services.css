@@ -100,6 +100,7 @@
 .services-scroll-button {
   width: 68px;
   height: 68px;
+  padding: 0;
   display: grid;
   place-items: center;
   flex-shrink: 0;
@@ -108,7 +109,9 @@
   color: var(--color-text);
   background: rgba(255, 255, 255, 0.18);
   text-decoration: none;
+  font: inherit;
   font-size: 1.4rem;
+  cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
 }

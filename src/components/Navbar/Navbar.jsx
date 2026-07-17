@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import { smoothEase } from "../../animation/variants";
 import { navigationLinks } from "../../config/site";
+import { prefetchPage } from "../../config/pageLoaders";
 import { useAppContext } from "../../context/AppContext";
 import useIsMobile from "../../hooks/useIsMobile";
 import "./Navbar.css";
@@ -163,6 +164,9 @@ const Navbar = () => {
           <NavLink
             to={path}
             onClick={closeMenu}
+            onFocus={() => prefetchPage(path)}
+            onMouseEnter={() => prefetchPage(path)}
+            onPointerDown={() => prefetchPage(path)}
             className={({ isActive }) =>
               `navbar__link ${
                 isActive

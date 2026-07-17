@@ -18,8 +18,7 @@
   transition:
     min-height 300ms ease,
     background-color 300ms ease,
-    box-shadow 300ms ease,
-    backdrop-filter 300ms ease;
+    box-shadow 300ms ease;
 }
 
 .navbar--scrolled {
@@ -173,6 +172,8 @@
   .navbar--scrolled {
     min-height: 75px;
     padding: 0 18px;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
 
   .navbar--scrolled {
@@ -210,10 +211,10 @@
     border: 1px solid rgba(255, 255, 255, 0.16);
     border-radius: 22px;
     color: var(--color-white);
-    background: rgba(23, 24, 27, 0.94);
+    background: rgba(23, 24, 27, 0.98);
     box-shadow: 0 22px 55px rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     transform-origin: top right;
   }
 

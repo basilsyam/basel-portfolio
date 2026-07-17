@@ -1,5 +1,4 @@
-import { Suspense } from "react";
-import { AnimatePresence } from "framer-motion";
+import { Suspense, useEffect, useRef } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import PageTransition from "../animation/PageTransition";
 import Navbar from "../components/Navbar/Navbar";
@@ -16,46 +15,47 @@ const pageDetails = {
 
 const MainLayout = () => {
   const location = useLocation();
+  const hasMounted = useRef(false);
   const currentPage = pageDetails[location.pathname] || pageDetails["/"];
 
-  const handleExitComplete = () => {
+  useEffect(() => {
     window.scrollTo({
       top: 0,
       left: 0,
       behavior: "auto",
     });
-  };
+  }, [location.pathname]);
+
+  const isInitialLoad = !hasMounted.current;
+
+  useEffect(() => {
+    hasMounted.current = true;
+  }, []);
 
   return (
     <>
       <Navbar />
 
-      <AnimatePresence
-        initial={false}
-        mode="sync"
-        onExitComplete={handleExitComplete}
+      <PageTransition
+        key={location.pathname}
+        isInitialLoad={isInitialLoad}
+        pageLabel={currentPage.label}
+        pageNumber={currentPage.number}
       >
-        <PageTransition
-          key={location.pathname}
-          isInitialLoad={location.key === "default"}
-          pageLabel={currentPage.label}
-          pageNumber={currentPage.number}
+        <Suspense
+          fallback={
+            <div
+              className="page-loader"
+              role="status"
+              aria-label="Loading page"
+            >
+              <span />
+            </div>
+          }
         >
-          <Suspense
-            fallback={
-              <div
-                className="page-loader"
-                role="status"
-                aria-label="Loading page"
-              >
-                <span />
-              </div>
-            }
-          >
-            <Outlet />
-          </Suspense>
-        </PageTransition>
-      </AnimatePresence>
+          <Outlet />
+        </Suspense>
+      </PageTransition>
 
       <Footer />
       <Chatbot />

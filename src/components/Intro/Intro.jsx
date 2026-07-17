@@ -8,6 +8,7 @@ import {
 import { Link } from "react-router-dom";
 import Reveal from "../../animation/Reveal";
 import { smoothEase } from "../../animation/variants";
+import useIsMobile from "../../hooks/useIsMobile";
 import "./Intro.css";
 
 const titleParts = [
@@ -58,6 +59,8 @@ const wordVariants = {
 const Intro = () => {
   const introRef = useRef(null);
   const shouldReduceMotion = useReducedMotion();
+  const isMobile = useIsMobile();
+  const disableParallax = shouldReduceMotion || isMobile;
 
   const { scrollYProgress } = useScroll({
     target: introRef,
@@ -81,7 +84,7 @@ const Intro = () => {
         className="intro__decoration"
         aria-hidden="true"
         style={{
-          y: shouldReduceMotion ? 0 : decorationY,
+          y: disableParallax ? 0 : decorationY,
         }}
       />
 

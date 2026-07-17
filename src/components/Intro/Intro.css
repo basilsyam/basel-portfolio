@@ -121,7 +121,6 @@
   touch-action: manipulation;
 }
 
-/* كان اللون primary وغير ظاهر فوق الخلفية الصفراء */
 
 .intro__link::after {
   content: "";

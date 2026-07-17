@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { MotionConfig } from "framer-motion";
 import { HashRouter } from "react-router-dom";
 import App from "./App";
 import SmoothScroll from "./components/SmoothScroll/SmoothScroll";
@@ -14,9 +15,11 @@ root.render(
   <React.StrictMode>
     <HashRouter>
       <AppProvider>
-        <SmoothScroll>
-          <App />
-        </SmoothScroll>
+        <MotionConfig reducedMotion="user">
+          <SmoothScroll>
+            <App />
+          </SmoothScroll>
+        </MotionConfig>
       </AppProvider>
     </HashRouter>
   </React.StrictMode>

@@ -418,7 +418,6 @@
     font-size: clamp(4rem, 19vw, 7rem);
   }
 
-  /* الزر الآن ظاهر على الجوال ويستجيب للمس */
   .hero__projects-button {
     right: 16px;
     bottom: 17%;

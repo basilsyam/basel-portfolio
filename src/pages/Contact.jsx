@@ -112,8 +112,6 @@ const Contact = () => {
         }
       );
 
-
-
       setStatus({
         type: "success",
         message: "Your message was sent successfully!",
@@ -121,8 +119,6 @@ const Contact = () => {
 
       formRef.current.reset();
     } catch (error) {
-
-
       setStatus({
         type: "error",
         message: getContactErrorMessage(error),
@@ -366,8 +362,6 @@ const Contact = () => {
           </div>
         </div>
       </motion.section>
-
-
     </div>
   );
 };

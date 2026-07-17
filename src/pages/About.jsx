@@ -9,9 +9,11 @@ import { Link } from "react-router-dom";
 import { profile, calculateAge } from "../data/profile";
 import ContactCTA from "../components/ContactCTA/ContactCTA";
 import OptimizedImage from "../components/common/OptimizedImage";
+import useIsMobile from "../hooks/useIsMobile";
 
 import SplitText from "../animation/SplitText";
 import { smoothEase } from "../animation/variants";
+import { scrollToSection } from "../utils/scroll";
 import "./About.css";
 
 const sectionVariants = {
@@ -73,6 +75,8 @@ const viewportOptions = {
 const About = () => {
   const storyRef = useRef(null);
   const shouldReduceMotion = useReducedMotion();
+  const isMobile = useIsMobile();
+  const disableParallax = shouldReduceMotion || isMobile;
   const age = calculateAge(profile.birthDate);
 
   const { scrollYProgress: storyScrollProgress } = useScroll({
@@ -150,10 +154,11 @@ const About = () => {
               Palestine.
             </p>
 
-            <motion.a
-              href="#story"
+            <motion.button
+              type="button"
               className="about-scroll-button"
               aria-label="Scroll to my story"
+              onClick={() => scrollToSection("story", shouldReduceMotion)}
               whileHover={
                 shouldReduceMotion ? undefined : { y: 7 }
               }
@@ -167,7 +172,7 @@ const About = () => {
               }}
             >
               ↓
-            </motion.a>
+            </motion.button>
           </motion.div>
         </div>
       </motion.section>
@@ -185,7 +190,7 @@ const About = () => {
           <motion.div
             className="about-story__image"
             variants={itemVariants}
-            style={{ y: shouldReduceMotion ? 0 : storyImageY }}
+            style={{ y: disableParallax ? 0 : storyImageY }}
             whileHover={
               shouldReduceMotion
                 ? undefined

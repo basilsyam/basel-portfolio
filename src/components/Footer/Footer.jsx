@@ -20,6 +20,7 @@ import Reveal from "../../animation/Reveal";
 import SplitText from "../../animation/SplitText";
 import { smoothEase } from "../../animation/variants";
 import { siteContact, siteLinks } from "../../config/site";
+import useIsMobile from "../../hooks/useIsMobile";
 import "./Footer.css";
 
 const socialLinks = [
@@ -96,6 +97,8 @@ const Footer = () => {
   const footerRef = useRef(null);
   const currentYear = new Date().getFullYear();
   const shouldReduceMotion = useReducedMotion();
+  const isMobile = useIsMobile();
+  const disableParallax = shouldReduceMotion || isMobile;
 
   const { scrollYProgress } = useScroll({
     target: footerRef,
@@ -123,7 +126,7 @@ const Footer = () => {
         className="footer__decoration"
         aria-hidden="true"
         style={{
-          y: shouldReduceMotion ? 0 : decorationY,
+          y: disableParallax ? 0 : decorationY,
         }}
       />
 

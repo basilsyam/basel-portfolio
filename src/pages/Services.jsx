@@ -11,6 +11,8 @@ import SplitText from "../animation/SplitText";
 import { smoothEase } from "../animation/variants";
 import ContactCTA from "../components/ContactCTA/ContactCTA";
 import services from "../data/services";
+import useIsMobile from "../hooks/useIsMobile";
+import { scrollToSection } from "../utils/scroll";
 
 import "./Services.css";
 
@@ -48,6 +50,8 @@ const Services = () => {
   const heroRef = useRef(null);
   const [activeService, setActiveService] = useState(null);
   const shouldReduceMotion = useReducedMotion();
+  const isMobile = useIsMobile();
+  const disableParallax = shouldReduceMotion || isMobile;
 
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -74,7 +78,7 @@ const Services = () => {
           className="services-hero__decoration"
           aria-hidden="true"
           style={{
-            y: shouldReduceMotion ? 0 : decorationY,
+            y: disableParallax ? 0 : decorationY,
           }}
         />
 
@@ -82,7 +86,7 @@ const Services = () => {
           <motion.div
             className="services-hero__content"
             style={{
-              y: shouldReduceMotion ? 0 : titleY,
+              y: disableParallax ? 0 : titleY,
             }}
           >
             <motion.p
@@ -151,10 +155,13 @@ const Services = () => {
                 build digital experiences that are fast, clear and easy to use.
               </p>
 
-              <motion.a
-                href="#services-list"
+              <motion.button
+                type="button"
                 className="services-scroll-button"
                 aria-label="Scroll to services"
+                onClick={() =>
+                  scrollToSection("services-list", shouldReduceMotion)
+                }
                 whileHover={shouldReduceMotion ? undefined : { y: 7 }}
                 whileTap={
                   shouldReduceMotion
@@ -171,7 +178,7 @@ const Services = () => {
                 }}
               >
                 ↓
-              </motion.a>
+              </motion.button>
             </motion.div>
           </motion.div>
         </div>

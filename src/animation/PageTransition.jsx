@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { smoothEase } from "./variants";
 import "./PageTransition.css";
@@ -6,23 +7,14 @@ const curtainEase = [0.77, 0, 0.18, 1];
 
 const contentVariants = {
   initial: {
-    opacity: 0,
-    y: 14,
+    opacity: 1,
+    y: 8,
   },
   enter: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.52,
-      delay: 0.12,
-      ease: smoothEase,
-    },
-  },
-  exit: {
-    opacity: 0.96,
-    y: -6,
-    transition: {
-      duration: 0.38,
+      duration: 0.42,
       ease: smoothEase,
     },
   },
@@ -38,20 +30,12 @@ const curtainVariants = {
     scaleY: 0,
     transformOrigin: "top",
     transition: {
-      duration: 0.38,
+      duration: 0.46,
+      delay: 0.06,
       ease: curtainEase,
     },
     transitionEnd: {
       pointerEvents: "none",
-    },
-  },
-  exit: {
-    scaleY: 1,
-    transformOrigin: "bottom",
-    pointerEvents: "none",
-    transition: {
-      duration: 0.32,
-      ease: curtainEase,
     },
   },
 };
@@ -65,16 +49,8 @@ const labelVariants = {
     opacity: 0,
     y: -8,
     transition: {
-      duration: 0.2,
-      delay: 0.68,
-      ease: smoothEase,
-    },
-  },
-  exit: {
-    opacity: 0,
-    y: -6,
-    transition: {
-      duration: 0.08,
+      duration: 0.16,
+      delay: 0.44,
       ease: smoothEase,
     },
   },
@@ -87,6 +63,9 @@ const PageTransition = ({
   pageNumber,
 }) => {
   const shouldReduceMotion = useReducedMotion();
+  const [isTransitionComplete, setIsTransitionComplete] = useState(
+    isInitialLoad
+  );
 
   if (shouldReduceMotion) {
     return <main className="page-transition__content">{children}</main>;
@@ -99,32 +78,34 @@ const PageTransition = ({
         variants={contentVariants}
         initial={isInitialLoad ? false : "initial"}
         animate="enter"
-        exit="exit"
       >
         {children}
       </motion.main>
 
-      <motion.div
-        className="page-transition__curtain"
-        aria-hidden="true"
-        variants={curtainVariants}
-        initial={isInitialLoad ? false : "initial"}
-        animate="enter"
-        exit="exit"
-      />
+      {!isTransitionComplete && (
+        <>
+          <motion.div
+            className="page-transition__curtain"
+            aria-hidden="true"
+            variants={curtainVariants}
+            initial="initial"
+            animate="enter"
+          />
 
-      <motion.div
-        className="page-transition__label"
-        aria-hidden="true"
-        variants={labelVariants}
-        initial={isInitialLoad ? false : "initial"}
-        animate="enter"
-        exit="exit"
-      >
-        <span className="page-transition__mark">B</span>
-        <span className="page-transition__name">{pageLabel}</span>
-        <span className="page-transition__number">{pageNumber} / 05</span>
-      </motion.div>
+          <motion.div
+            className="page-transition__label"
+            aria-hidden="true"
+            variants={labelVariants}
+            initial="initial"
+            animate="enter"
+            onAnimationComplete={() => setIsTransitionComplete(true)}
+          >
+            <span className="page-transition__mark">B</span>
+            <span className="page-transition__name">{pageLabel}</span>
+            <span className="page-transition__number">{pageNumber} / 05</span>
+          </motion.div>
+        </>
+      )}
     </>
   );
 };

@@ -322,11 +322,6 @@
     border-radius: 14px;
   }
 
-  /*
-    على الجوال نستخدم أبعاد الصورة الطبيعية،
-    لذلك لا تتشوه ولا ينقص محتواها.
-  */
-
   .project__image-wrapper {
     width: 100%;
     aspect-ratio: 16 / 9;
