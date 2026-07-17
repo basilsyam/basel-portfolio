@@ -30,7 +30,11 @@ const MainLayout = () => {
     <>
       <Navbar />
 
-      <AnimatePresence mode="wait" onExitComplete={handleExitComplete}>
+      <AnimatePresence
+        initial={false}
+        mode="sync"
+        onExitComplete={handleExitComplete}
+      >
         <PageTransition
           key={location.pathname}
           pageLabel={currentPage.label}

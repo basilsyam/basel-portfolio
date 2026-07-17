@@ -7,7 +7,7 @@ const projects = [
     group: "Frontend",
     description:
       "A modern Arabic Tetris game featuring responsive controls, colorful visuals, score and level tracking, piece preview, hold functionality and an intuitive interface for desktop and mobile devices.",
-    image: `${process.env.PUBLIC_URL}/images/projects/tetris-game.png`,
+    image: `${process.env.PUBLIC_URL}/images/projects/tetris-game.jpg`,
     liveUrl: "https://basilsyam.github.io/tetris/",
     technologies: ["HTML", "CSS", "JavaScript", "Tailwind CSS"],
     features: [
@@ -28,7 +28,7 @@ const projects = [
     group: "API",
     description:
       "A responsive GitHub repository explorer that allows users to search for GitHub profiles, browse repositories, filter projects by programming language and sort results through a modern interface.",
-    image: `${process.env.PUBLIC_URL}/images/projects/repo-explorer.png`,
+    image: `${process.env.PUBLIC_URL}/images/projects/repo-explorer.jpg`,
     liveUrl: "https://basilsyam.github.io/API_Integration_Assign_2/",
     technologies: [
       "HTML",
@@ -57,7 +57,7 @@ const projects = [
     group: "Frontend",
     description:
       "A responsive Arabic health information platform that organizes educational medical content into accessible categories, helping users quickly search and browse general health topics.",
-    image: `${process.env.PUBLIC_URL}/images/projects/gaza-paramedic.png`,
+    image: `${process.env.PUBLIC_URL}/images/projects/gaza-paramedic.jpg`,
     liveUrl: "https://basilsyam.github.io/gaza-paramedic/",
     technologies: [
       "HTML",
@@ -87,7 +87,7 @@ const projects = [
     group: "Full-Stack",
     description:
       "A full-stack electronic invitation platform that provides each client with a private account to manage invitees and generate personalized invitation links carrying every guest’s name.",
-    image: `${process.env.PUBLIC_URL}/images/projects/wedding-invitation.png`,
+    image: `${process.env.PUBLIC_URL}/images/projects/wedding-invitation.jpg`,
     liveUrl: "https://wed-inv.talk4fun.net/wedding-invitation/",
     technologies: ["HTML", "CSS", "JavaScript", "PHP", "MySQL"],
     features: [
@@ -110,7 +110,7 @@ const projects = [
     group: "PWA",
     description:
       "A responsive Arabic task management PWA that helps users organize daily activities, assign priorities and deadlines, track completion progress and access saved tasks.",
-    image: `${process.env.PUBLIC_URL}/images/projects/smart-task-manager.png`,
+    image: `${process.env.PUBLIC_URL}/images/projects/smart-task-manager.jpg`,
     liveUrl: "https://basilsyam.github.io/To-Do/",
     technologies: ["HTML", "CSS", "JavaScript", "LocalStorage", "PWA"],
     features: [
@@ -133,7 +133,7 @@ const projects = [
     group: "Frontend",
     description:
       "A premium business website created for a renovation and stonework company, presenting its services, completed projects and craftsmanship through an elegant visual identity.",
-    image: `${process.env.PUBLIC_URL}/images/projects/symmetry-stones.png.png`,
+    image: `${process.env.PUBLIC_URL}/images/projects/symmetry-stones.jpg`,
     liveUrl: "https://basilsyam.github.io/Symmetry-Stones/",
     technologies: ["HTML", "CSS"],
     features: [

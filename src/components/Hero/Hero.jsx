@@ -195,11 +195,11 @@ const Hero = () => {
         <picture>
           <source
             media="(max-width: 600px)"
-            srcSet={`${process.env.PUBLIC_URL}/images/basel-hero-mobile.png`}
+            srcSet={`${process.env.PUBLIC_URL}/images/basel-hero-mobile.jpg`}
           />
 
           <img
-            src={`${process.env.PUBLIC_URL}/images/basel-hero.png`}
+            src={`${process.env.PUBLIC_URL}/images/basel-hero.jpg`}
             alt={profile.shortName}
             width="1672"
             height="941"

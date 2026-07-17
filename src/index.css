@@ -12,6 +12,14 @@
   --color-muted: #051527;
 }
 
+@font-face {
+  font-family: "Manrope";
+  src: url("./font/Manrope-Variable.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+}
+
 * {
   box-sizing: border-box;
 }

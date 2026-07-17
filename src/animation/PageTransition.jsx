@@ -13,8 +13,8 @@ const contentVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 1,
-      delay: 0.2,
+      duration: 0.52,
+      delay: 0.12,
       ease: smoothEase,
     },
   },
@@ -22,7 +22,7 @@ const contentVariants = {
     opacity: 0.96,
     y: -6,
     transition: {
-      duration: 0.9,
+      duration: 0.38,
       ease: smoothEase,
     },
   },
@@ -38,8 +38,8 @@ const curtainVariants = {
     scaleY: 0,
     transformOrigin: "top",
     transition: {
-      duration: 0.58,
-      delay: 0.04,
+      duration: 0.5,
+      delay: 0.16,
       ease: curtainEase,
     },
     transitionEnd: {
@@ -51,7 +51,7 @@ const curtainVariants = {
     transformOrigin: "bottom",
     pointerEvents: "auto",
     transition: {
-      duration: 0.5,
+      duration: 0.48,
       ease: curtainEase,
     },
   },
@@ -66,17 +66,16 @@ const labelVariants = {
     opacity: 0,
     y: -8,
     transition: {
-      duration: 0.18,
-      delay: 0.4,
+      duration: 0.2,
+      delay: 0.62,
       ease: smoothEase,
     },
   },
   exit: {
-    opacity: 1,
-    y: 0,
+    opacity: 0,
+    y: -6,
     transition: {
-      duration: 0.16,
-      delay: 0.28,
+      duration: 0.08,
       ease: smoothEase,
     },
   },

@@ -200,7 +200,7 @@ const About = () => {
           >
             <div className="about-story__placeholder">
               <OptimizedImage
-                src={`${process.env.PUBLIC_URL}/images/basel-hero.png`}
+                src={`${process.env.PUBLIC_URL}/images/basel-hero.jpg`}
                 alt={profile.shortName}
                 width="1672"
                 height="941"
