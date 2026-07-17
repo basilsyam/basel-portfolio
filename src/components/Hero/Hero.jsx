@@ -169,7 +169,7 @@ const Hero = () => {
       ref={heroRef}
       className="hero"
       variants={containerVariants}
-      initial="hidden"
+      initial={false}
       animate="visible"
       style={{
         opacity: disableParallax ? 1 : heroOpacity,

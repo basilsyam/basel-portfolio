@@ -80,7 +80,12 @@ const labelVariants = {
   },
 };
 
-const PageTransition = ({ children, pageLabel, pageNumber }) => {
+const PageTransition = ({
+  children,
+  isInitialLoad = false,
+  pageLabel,
+  pageNumber,
+}) => {
   const shouldReduceMotion = useReducedMotion();
 
   if (shouldReduceMotion) {
@@ -92,7 +97,7 @@ const PageTransition = ({ children, pageLabel, pageNumber }) => {
       <motion.main
         className="page-transition__content"
         variants={contentVariants}
-        initial="initial"
+        initial={isInitialLoad ? false : "initial"}
         animate="enter"
         exit="exit"
       >
@@ -103,7 +108,7 @@ const PageTransition = ({ children, pageLabel, pageNumber }) => {
         className="page-transition__curtain"
         aria-hidden="true"
         variants={curtainVariants}
-        initial="initial"
+        initial={isInitialLoad ? false : "initial"}
         animate="enter"
         exit="exit"
       />
@@ -112,7 +117,7 @@ const PageTransition = ({ children, pageLabel, pageNumber }) => {
         className="page-transition__label"
         aria-hidden="true"
         variants={labelVariants}
-        initial="initial"
+        initial={isInitialLoad ? false : "initial"}
         animate="enter"
         exit="exit"
       >

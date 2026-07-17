@@ -37,6 +37,7 @@ const MainLayout = () => {
       >
         <PageTransition
           key={location.pathname}
+          isInitialLoad={location.key === "default"}
           pageLabel={currentPage.label}
           pageNumber={currentPage.number}
         >

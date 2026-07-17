@@ -200,14 +200,7 @@ const Navbar = () => {
         className={`navbar ${
           isScrolled ? "navbar--scrolled" : ""
         }`}
-        initial={
-          shouldReduceMotion
-            ? false
-            : {
-                opacity: 0,
-                y: -80,
-              }
-        }
+        initial={false}
         animate={{
           opacity: 1,
           y: 0,
