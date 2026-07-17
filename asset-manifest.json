@@ -1,19 +1,20 @@
 {
   "files": {
-    "main.css": "/basel-portfolio/static/css/main.74627afd.css",
-    "main.js": "/basel-portfolio/static/js/main.efaad459.js",
+    "main.css": "/basel-portfolio/static/css/main.fd3b6f1a.css",
+    "main.js": "/basel-portfolio/static/js/main.ca774cb3.js",
     "static/css/732.0ce5aecb.chunk.css": "/basel-portfolio/static/css/732.0ce5aecb.chunk.css",
-    "static/js/732.f113b75d.chunk.js": "/basel-portfolio/static/js/732.f113b75d.chunk.js",
+    "static/js/732.c4e5b6e7.chunk.js": "/basel-portfolio/static/js/732.c4e5b6e7.chunk.js",
     "static/css/915.c5a6f610.chunk.css": "/basel-portfolio/static/css/915.c5a6f610.chunk.css",
     "static/js/915.038c6d08.chunk.js": "/basel-portfolio/static/js/915.038c6d08.chunk.js",
     "static/css/831.d6a8fb9b.chunk.css": "/basel-portfolio/static/css/831.d6a8fb9b.chunk.css",
     "static/js/831.ec7f0cb3.chunk.js": "/basel-portfolio/static/js/831.ec7f0cb3.chunk.js",
     "static/css/851.ac3a63d3.chunk.css": "/basel-portfolio/static/css/851.ac3a63d3.chunk.css",
     "static/js/851.6e22d3f0.chunk.js": "/basel-portfolio/static/js/851.6e22d3f0.chunk.js",
+    "static/media/Manrope-Variable.ttf": "/basel-portfolio/static/media/Manrope-Variable.2868b9ae6b61fedf5072.ttf",
     "index.html": "/basel-portfolio/index.html"
   },
   "entrypoints": [
-    "static/css/main.74627afd.css",
-    "static/js/main.efaad459.js"
+    "static/css/main.fd3b6f1a.css",
+    "static/js/main.ca774cb3.js"
   ]
 }
