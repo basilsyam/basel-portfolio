@@ -1,29 +1,19 @@
 {
   "files": {
-    "main.css": "/basel-portfolio/static/css/main.24da1d66.css",
-    "main.js": "/basel-portfolio/static/js/main.ba0ee9fb.js",
-    "static/css/453.7e42fd86.chunk.css": "/basel-portfolio/static/css/453.7e42fd86.chunk.css",
-    "static/js/453.2b3301aa.chunk.js": "/basel-portfolio/static/js/453.2b3301aa.chunk.js",
-    "static/css/677.55da784f.chunk.css": "/basel-portfolio/static/css/677.55da784f.chunk.css",
-    "static/js/677.48e4533c.chunk.js": "/basel-portfolio/static/js/677.48e4533c.chunk.js",
-    "static/css/978.6784c461.chunk.css": "/basel-portfolio/static/css/978.6784c461.chunk.css",
-    "static/js/978.10a241ad.chunk.js": "/basel-portfolio/static/js/978.10a241ad.chunk.js",
-    "static/css/726.5816d4bf.chunk.css": "/basel-portfolio/static/css/726.5816d4bf.chunk.css",
-    "static/js/726.09f80e70.chunk.js": "/basel-portfolio/static/js/726.09f80e70.chunk.js",
-    "index.html": "/basel-portfolio/index.html",
-    "main.24da1d66.css.map": "/basel-portfolio/static/css/main.24da1d66.css.map",
-    "main.ba0ee9fb.js.map": "/basel-portfolio/static/js/main.ba0ee9fb.js.map",
-    "453.7e42fd86.chunk.css.map": "/basel-portfolio/static/css/453.7e42fd86.chunk.css.map",
-    "453.2b3301aa.chunk.js.map": "/basel-portfolio/static/js/453.2b3301aa.chunk.js.map",
-    "677.55da784f.chunk.css.map": "/basel-portfolio/static/css/677.55da784f.chunk.css.map",
-    "677.48e4533c.chunk.js.map": "/basel-portfolio/static/js/677.48e4533c.chunk.js.map",
-    "978.6784c461.chunk.css.map": "/basel-portfolio/static/css/978.6784c461.chunk.css.map",
-    "978.10a241ad.chunk.js.map": "/basel-portfolio/static/js/978.10a241ad.chunk.js.map",
-    "726.5816d4bf.chunk.css.map": "/basel-portfolio/static/css/726.5816d4bf.chunk.css.map",
-    "726.09f80e70.chunk.js.map": "/basel-portfolio/static/js/726.09f80e70.chunk.js.map"
+    "main.css": "/basel-portfolio/static/css/main.74627afd.css",
+    "main.js": "/basel-portfolio/static/js/main.efaad459.js",
+    "static/css/732.0ce5aecb.chunk.css": "/basel-portfolio/static/css/732.0ce5aecb.chunk.css",
+    "static/js/732.f113b75d.chunk.js": "/basel-portfolio/static/js/732.f113b75d.chunk.js",
+    "static/css/915.c5a6f610.chunk.css": "/basel-portfolio/static/css/915.c5a6f610.chunk.css",
+    "static/js/915.038c6d08.chunk.js": "/basel-portfolio/static/js/915.038c6d08.chunk.js",
+    "static/css/831.d6a8fb9b.chunk.css": "/basel-portfolio/static/css/831.d6a8fb9b.chunk.css",
+    "static/js/831.ec7f0cb3.chunk.js": "/basel-portfolio/static/js/831.ec7f0cb3.chunk.js",
+    "static/css/851.ac3a63d3.chunk.css": "/basel-portfolio/static/css/851.ac3a63d3.chunk.css",
+    "static/js/851.6e22d3f0.chunk.js": "/basel-portfolio/static/js/851.6e22d3f0.chunk.js",
+    "index.html": "/basel-portfolio/index.html"
   },
   "entrypoints": [
-    "static/css/main.24da1d66.css",
-    "static/js/main.ba0ee9fb.js"
+    "static/css/main.74627afd.css",
+    "static/js/main.efaad459.js"
   ]
 }
