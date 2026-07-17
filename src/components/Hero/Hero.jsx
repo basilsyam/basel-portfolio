@@ -11,6 +11,7 @@ import { HiOutlineArrowDownRight } from "react-icons/hi2";
 import { TbWorld } from "react-icons/tb";
 import { profile } from "../../data/profile";
 import { smoothEase } from "../../animation/variants";
+import useIsMobile from "../../hooks/useIsMobile";
 import "./Hero.css";
 
 const ease = smoothEase;
@@ -123,6 +124,8 @@ const SplitText = ({ children }) => {
 const Hero = () => {
   const heroRef = useRef(null);
   const shouldReduceMotion = useReducedMotion();
+  const isMobile = useIsMobile();
+  const disableParallax = shouldReduceMotion || isMobile;
 
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -169,7 +172,7 @@ const Hero = () => {
       initial="hidden"
       animate="visible"
       style={{
-        opacity: shouldReduceMotion ? 1 : heroOpacity,
+        opacity: disableParallax ? 1 : heroOpacity,
       }}
     >
       {/* طبقة خلفية Parallax */}
@@ -177,7 +180,7 @@ const Hero = () => {
         className="hero__parallax-background"
         aria-hidden="true"
         style={{
-          y: shouldReduceMotion ? 0 : smoothBackgroundY,
+          y: disableParallax ? 0 : smoothBackgroundY,
         }}
       />
 
@@ -186,7 +189,7 @@ const Hero = () => {
         className="hero__portrait"
         variants={portraitVariants}
         style={{
-          y: shouldReduceMotion ? 0 : smoothPortraitY,
+          y: disableParallax ? 0 : smoothPortraitY,
         }}
       >
         <picture>
@@ -228,7 +231,7 @@ const Hero = () => {
         className="hero__location"
         variants={locationVariants}
         style={{
-          y: shouldReduceMotion ? 0 : smoothLocationY,
+          y: disableParallax ? 0 : smoothLocationY,
         }}
         whileTap={
           shouldReduceMotion
@@ -268,7 +271,7 @@ const Hero = () => {
         className="hero__role"
         variants={splitContainerVariants}
         style={{
-          y: shouldReduceMotion ? 0 : smoothContentY,
+          y: disableParallax ? 0 : smoothContentY,
         }}
       >
         <motion.div variants={fadeUpVariants}>

@@ -111,7 +111,6 @@
   font-size: 1.4rem;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
-  will-change: transform;
 }
 
 /* ================= Services List ================= */
@@ -231,7 +230,6 @@
   border: 1px solid rgba(32, 33, 36, 0.2);
   border-radius: 50%;
   font-size: 1.5rem;
-  will-change: transform;
 }
 
 .service-card__toggle > p {

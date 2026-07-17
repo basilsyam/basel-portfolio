@@ -7,6 +7,9 @@ const SmoothScroll = ({ children }) => {
     const reducedMotionQuery = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     );
+    const mobileQuery = window.matchMedia(
+      "(max-width: 768px), (pointer: coarse)"
+    );
 
     let lenis = null;
 
@@ -17,8 +20,8 @@ const SmoothScroll = ({ children }) => {
         lenis = null;
       }
 
-      // استخدام التمرير الطبيعي عند تقليل الحركة
-      if (reducedMotionQuery.matches) {
+      // Native scrolling is faster and more predictable on touch devices.
+      if (reducedMotionQuery.matches || mobileQuery.matches) {
         return;
       }
 
@@ -54,6 +57,7 @@ const SmoothScroll = ({ children }) => {
     createLenis();
 
     reducedMotionQuery.addEventListener("change", createLenis);
+    mobileQuery.addEventListener("change", createLenis);
 
     document.addEventListener(
       "visibilitychange",
@@ -65,6 +69,7 @@ const SmoothScroll = ({ children }) => {
         "change",
         createLenis
       );
+      mobileQuery.removeEventListener("change", createLenis);
 
       document.removeEventListener(
         "visibilitychange",

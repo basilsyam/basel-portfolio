@@ -5,12 +5,12 @@ import ContactCTA from "../components/ContactCTA/ContactCTA";
 
 const Home = () => {
   return (
-    <main>
+    <div>
       <Hero />
       <Intro />
       <SelectedWork />
       <ContactCTA />
-    </main>
+    </div>
   );
 };
 

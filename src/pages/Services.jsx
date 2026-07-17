@@ -64,7 +64,7 @@ const Services = () => {
   };
 
   return (
-    <main className="services-page">
+    <div className="services-page">
       <section
         ref={heroRef}
         className="services-hero"
@@ -346,7 +346,7 @@ const Services = () => {
 
       <ContactCTA />
 
-    </main>
+    </div>
   );
 };
 

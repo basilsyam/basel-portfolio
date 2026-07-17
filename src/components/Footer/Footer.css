@@ -1,4 +1,6 @@
 .footer {
+  content-visibility: auto;
+  contain-intrinsic-size: 650px;
   position: relative;
   padding: 80px 5vw 35px;
   overflow: hidden;
@@ -73,7 +75,6 @@
 
 .footer__email-wrapper {
   display: inline-flex;
-  will-change: transform;
 }
 
 .footer__email {
@@ -122,7 +123,6 @@
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
-  will-change: transform;
 }
 
 .footer__top-button span {
@@ -139,7 +139,6 @@
   border-radius: 10px;
   background: var(--color-primary);
   transform-origin: left;
-  will-change: transform;
 }
 
 /* ================= Socials ================= */
@@ -175,7 +174,6 @@
   font-size: 1.15rem;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
-  will-change: transform;
   transition:
     color 300ms ease,
     background-color 300ms ease,

@@ -111,7 +111,6 @@
 .about-scroll-button {
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
-  will-change: transform;
 }
 
 .about-story {
@@ -753,5 +752,4 @@
   border-radius: 220px 220px 25px 25px;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
-  will-change: transform;
 }

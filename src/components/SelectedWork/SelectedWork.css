@@ -1,4 +1,6 @@
 .selected-work {
+  content-visibility: auto;
+  contain-intrinsic-size: 1000px;
   position: relative;
   padding: clamp(90px, 11vw, 170px) 5vw;
   overflow: hidden;
@@ -103,7 +105,6 @@
 .project-reveal__content {
   position: relative;
   width: 100%;
-  will-change: transform, opacity;
 }
 
 .project-reveal__cover {
@@ -113,7 +114,6 @@
   pointer-events: none;
   background: var(--color-primary);
   transform-origin: top;
-  will-change: transform;
 }
 
 /* ================= Project Image ================= */
@@ -173,7 +173,6 @@
   font-weight: 600;
   text-align: center;
   pointer-events: none;
-  will-change: transform, opacity;
 }
 
 /* Hover فقط على أجهزة الماوس */

@@ -1,4 +1,6 @@
 .contact-cta {
+  content-visibility: auto;
+  contain-intrinsic-size: 750px;
   position: relative;
   z-index: 2;
   margin-top: -1px;
@@ -245,7 +247,6 @@
 .contact-cta__button-wrapper {
   flex-shrink: 0;
   border-radius: 50%;
-  will-change: transform;
 }
 
 .contact-cta__button,
@@ -256,12 +257,10 @@
 
 .contact-cta__button-arrow {
   display: inline-block;
-  will-change: transform;
 }
 
 .contact-cta__line {
   transform-origin: left;
-  will-change: transform;
 }
 
 @media (prefers-reduced-motion: reduce) {

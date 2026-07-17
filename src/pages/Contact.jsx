@@ -133,7 +133,7 @@ const Contact = () => {
   };
 
   return (
-    <main className="contact-page">
+    <div className="contact-page">
       <motion.section
         className="contact"
         initial={{ opacity: 0 }}
@@ -368,7 +368,7 @@ const Contact = () => {
       </motion.section>
 
 
-    </main>
+    </div>
   );
 };
 

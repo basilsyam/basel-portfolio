@@ -53,7 +53,7 @@ const Projects = () => {
   }, [activeFilter]);
 
   return (
-    <main className="projects-page">
+    <div className="projects-page">
       <section className="projects-hero">
         <motion.div
           className="projects-hero__content"
@@ -238,7 +238,7 @@ const Projects = () => {
           )}
         </div>
       </section>
-    </main>
+    </div>
   );
 };
 

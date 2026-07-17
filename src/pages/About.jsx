@@ -118,7 +118,7 @@ const About = () => {
   ];
 
   return (
-    <main className="about-page">
+    <div className="about-page">
       <motion.section
         className="about-hero"
         variants={sectionVariants}
@@ -496,7 +496,7 @@ const About = () => {
 
       <ContactCTA />
 
-    </main>
+    </div>
   );
 };
 

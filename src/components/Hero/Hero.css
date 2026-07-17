@@ -92,7 +92,6 @@
   font-weight: 600;
   cursor: default;
   user-select: none;
-  will-change: transform;
 }
 
 .hero__availability-dot {
@@ -130,7 +129,6 @@
   color: var(--color-white);
   background: rgba(36, 36, 36, 0.93);
   box-shadow: 0 20px 45px rgba(36, 36, 36, 0.15);
-  will-change: transform;
 }
 
 .hero__location-text {
@@ -168,7 +166,6 @@
   right: 7%;
   color: var(--color-white);
   font-size: clamp(1.5rem, 2.2vw, 2.6rem);
-  will-change: transform;
 }
 
 .hero__role p {
@@ -195,7 +192,6 @@
 
 .hero__letter {
   display: inline-block;
-  will-change: transform, opacity;
 }
 
 /* ================= Name Marquee ================= */
@@ -255,7 +251,6 @@
   right: 4vw;
   bottom: 28px;
   border-radius: 50%;
-  will-change: transform;
 }
 
 .hero__projects-link {
