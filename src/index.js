@@ -5,6 +5,7 @@ import { HashRouter } from "react-router-dom";
 import App from "./App";
 import SmoothScroll from "./components/SmoothScroll/SmoothScroll";
 import { AppProvider } from "./context/AppContext";
+import { LanguageProvider } from "./context/LanguageContext";
 import "./index.css";
 
 const root = ReactDOM.createRoot(
@@ -14,13 +15,15 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <HashRouter>
-      <AppProvider>
-        <MotionConfig reducedMotion="user">
-          <SmoothScroll>
-            <App />
-          </SmoothScroll>
-        </MotionConfig>
-      </AppProvider>
+      <LanguageProvider>
+        <AppProvider>
+          <MotionConfig reducedMotion="user">
+            <SmoothScroll>
+              <App />
+            </SmoothScroll>
+          </MotionConfig>
+        </AppProvider>
+      </LanguageProvider>
     </HashRouter>
   </React.StrictMode>
 );

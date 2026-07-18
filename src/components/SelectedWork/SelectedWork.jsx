@@ -6,12 +6,16 @@ import ProjectReveal from "../../animation/ProjectReveal";
 import { smoothEase } from "../../animation/variants";
 import projects from "../../data/projects";
 import OptimizedImage from "../common/OptimizedImage";
+import TechnicalText from "../common/TechnicalText";
+import BidiText from "../common/BidiText";
+import { useLanguage } from "../../context/LanguageContext";
 import "./SelectedWork.css";
 
 const selectedProjects = projects.filter((project) => project.id === 4);
 
 const SelectedWork = () => {
   const shouldReduceMotion = useReducedMotion();
+  const { t } = useLanguage();
 
   return (
     <section
@@ -21,14 +25,16 @@ const SelectedWork = () => {
       <div className="selected-work__header">
         <div>
           <Reveal direction="up">
-            <p className="selected-work__eyebrow">Portfolio</p>
+            <p className="selected-work__eyebrow">
+              {t("selectedWork.eyebrow")}
+            </p>
           </Reveal>
 
           <h2
             id="selected-work-title"
             className="selected-work__heading"
           >
-            <SplitText text="Selected work" />
+            <SplitText text={t("selectedWork.title")} />
           </h2>
         </div>
 
@@ -52,13 +58,16 @@ const SelectedWork = () => {
             to="/projects"
             className="selected-work__all-link"
           >
-            View all work ↗
+            {t("selectedWork.viewAll")}
           </Link>
         </motion.div>
       </div>
 
       <div className="selected-work__list">
-        {selectedProjects.map((project, projectIndex) => (
+        {selectedProjects.map((project, projectIndex) => {
+          const localizedProject = t(`projects.items.${project.id}`);
+
+          return (
           <article className="project" key={project.id}>
             <ProjectReveal>
               <motion.a
@@ -66,7 +75,9 @@ const SelectedWork = () => {
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={`Open ${project.title}`}
+                aria-label={t("projects.open", {
+                  title: localizedProject.title,
+                })}
                 whileTap={
                   shouldReduceMotion
                     ? undefined
@@ -84,7 +95,7 @@ const SelectedWork = () => {
                   <OptimizedImage
                     className="project__image"
                     src={project.image}
-                    alt={`${project.title} preview`}
+                    alt={localizedProject.title}
                     width="1600"
                     height="900"
                     loading="lazy"
@@ -114,7 +125,7 @@ const SelectedWork = () => {
                       ease: smoothEase,
                     }}
                   >
-                    Visit site ↗
+                    {t("common.visitSite")}
                   </motion.span>
                 </div>
               </motion.a>
@@ -126,7 +137,7 @@ const SelectedWork = () => {
                 shouldReduceMotion
                   ? false
                   : {
-                      opacity: 0,
+                      opacity: 1,
                       y: 35,
                     }
               }
@@ -150,8 +161,12 @@ const SelectedWork = () => {
                 </span>
 
                 <div>
-                  <h3>{project.title}</h3>
-                  <p>{project.category}</p>
+                  <BidiText as="h3">
+                    {localizedProject.title}
+                  </BidiText>
+                  <BidiText as="p">
+                    {localizedProject.category}
+                  </BidiText>
                 </div>
               </div>
 
@@ -180,7 +195,7 @@ const SelectedWork = () => {
                     key={technology}
                     variants={{
                       hidden: {
-                        opacity: 0,
+                        opacity: 1,
                         y: 15,
                         scale: 0.9,
                       },
@@ -197,13 +212,14 @@ const SelectedWork = () => {
                       },
                     }}
                   >
-                    {technology}
+                    <TechnicalText>{technology}</TechnicalText>
                   </motion.li>
                 ))}
               </motion.ul>
             </motion.div>
           </article>
-        ))}
+          );
+        })}
       </div>
     </section>
   );

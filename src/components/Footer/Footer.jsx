@@ -21,6 +21,7 @@ import SplitText from "../../animation/SplitText";
 import { smoothEase } from "../../animation/variants";
 import { siteContact, siteLinks } from "../../config/site";
 import useIsMobile from "../../hooks/useIsMobile";
+import { useLanguage } from "../../context/LanguageContext";
 import "./Footer.css";
 
 const socialLinks = [
@@ -75,7 +76,7 @@ const socialContainerVariants = {
 
 const socialItemVariants = {
   hidden: {
-    opacity: 0,
+    opacity: 1,
     y: 25,
     scale: 0.7,
   },
@@ -99,6 +100,7 @@ const Footer = () => {
   const shouldReduceMotion = useReducedMotion();
   const isMobile = useIsMobile();
   const disableParallax = shouldReduceMotion || isMobile;
+  const { isRTL, t } = useLanguage();
 
   const { scrollYProgress } = useScroll({
     target: footerRef,
@@ -135,12 +137,12 @@ const Footer = () => {
           <div className="footer__identity">
             <Reveal direction="up">
               <p className="footer__eyebrow">
-                Software Engineer
+                {t("footer.role")}
               </p>
             </Reveal>
 
-            <h2 aria-label="Basel Seyam">
-              <SplitText text="Basel Seyam" />
+            <h2 aria-label={t("footer.name")}>
+              <SplitText text={t("footer.name")} />
             </h2>
 
             <Reveal direction="up" delay={0.15}>
@@ -165,6 +167,7 @@ const Footer = () => {
                 <a
                   href={siteLinks.email}
                   className="footer__email"
+                  dir="ltr"
                 >
                   {siteContact.email}
                 </a>
@@ -177,13 +180,13 @@ const Footer = () => {
               type="button"
               className="footer__top-button"
               onClick={scrollToTop}
-              aria-label="Back to top"
+              aria-label={t("common.backToTop")}
               whileHover={
                 shouldReduceMotion
                   ? undefined
                   : {
                       y: -7,
-                      rotate: -5,
+                      rotate: isRTL ? 5 : -5,
                     }
               }
               whileTap={
@@ -246,13 +249,13 @@ const Footer = () => {
         <div className="footer__social-section">
           <Reveal direction="left">
             <p className="footer__label">
-              Connect with me
+              {t("footer.connect")}
             </p>
           </Reveal>
 
           <motion.nav
             className="footer__socials"
-            aria-label="Social media links"
+            aria-label={t("footer.socialLabel")}
             variants={
               shouldReduceMotion
                 ? undefined
@@ -297,7 +300,7 @@ const Footer = () => {
                       ? undefined
                       : {
                           y: -7,
-                          rotate: -5,
+                          rotate: isRTL ? 5 : -5,
                           scale: 1.06,
                       }
                   }
@@ -329,7 +332,7 @@ const Footer = () => {
             shouldReduceMotion
               ? false
               : {
-                  opacity: 0,
+                  opacity: 1,
                   y: 25,
                 }
           }
@@ -348,13 +351,12 @@ const Footer = () => {
           }}
         >
           <p>
-            © {currentYear} Basel Seyam. All rights
-            reserved.
+            {t("footer.rights", { year: currentYear })}
           </p>
 
           <p>
-            Designed & developed by{" "}
-            <strong>Basel Seyam</strong>
+            {t("footer.credit")}{" "}
+            <strong>{t("footer.name")}</strong>
           </p>
         </motion.div>
       </div>

@@ -7,6 +7,7 @@ import Reveal from "../../animation/Reveal";
 import SplitText from "../../animation/SplitText";
 import { smoothEase } from "../../animation/variants";
 import { siteContact, siteLinks } from "../../config/site";
+import { useLanguage } from "../../context/LanguageContext";
 import "./ContactCTA.css";
 
 const actionsContainerVariants = {
@@ -22,7 +23,7 @@ const actionsContainerVariants = {
 
 const actionVariants = {
   hidden: {
-    opacity: 0,
+    opacity: 1,
     y: 20,
   },
 
@@ -39,6 +40,8 @@ const actionVariants = {
 
 const ContactCTA = () => {
   const shouldReduceMotion = useReducedMotion();
+  const { isRTL, t } = useLanguage();
+  const titleParts = t("contactCta.titleParts");
 
   return (
     <section
@@ -49,7 +52,7 @@ const ContactCTA = () => {
         <div className="contact-cta__content">
           <Reveal direction="up">
             <p className="contact-cta__eyebrow">
-              Get in touch
+              {t("contactCta.eyebrow")}
             </p>
           </Reveal>
 
@@ -57,14 +60,14 @@ const ContactCTA = () => {
             <h2
               id="contact-cta-title"
               className="contact-cta__title"
-              aria-label="Have a project in mind?"
+              aria-label={t("contactCta.title")}
             >
               <span className="contact-cta__title-line">
-                <SplitText text="Have a project" />
+                <SplitText text={titleParts[0]} />
               </span>
 
               <span className="contact-cta__title-line">
-                <SplitText text="in mind?" />
+                <SplitText text={titleParts[1]} />
               </span>
             </h2>
 
@@ -76,7 +79,7 @@ const ContactCTA = () => {
                     ? undefined
                     : {
                         scale: 1.07,
-                        rotate: -4,
+                        rotate: isRTL ? 4 : -4,
                       }
                 }
                 whileTap={
@@ -96,9 +99,9 @@ const ContactCTA = () => {
                 <Link
                   to="/contact"
                   className="contact-cta__button"
-                  aria-label="Go to contact page"
+                  aria-label={t("contactCta.buttonLabel")}
                 >
-                  <span>Contact me</span>
+                  <span>{t("common.contactMe")}</span>
 
                   <motion.span
                     className="contact-cta__button-arrow"
@@ -118,7 +121,7 @@ const ContactCTA = () => {
                       ease: "easeInOut",
                     }}
                   >
-                    ↗
+                    {isRTL ? "↖" : "↗"}
                   </motion.span>
                 </Link>
               </motion.div>
@@ -168,6 +171,7 @@ const ContactCTA = () => {
             <motion.a
               href={siteLinks.email}
               className="contact-cta__action"
+              dir="ltr"
               variants={
                 shouldReduceMotion
                   ? undefined
@@ -218,8 +222,10 @@ const ContactCTA = () => {
                     }
               }
             >
-              <span>WhatsApp</span>
-              <span aria-hidden="true">↗</span>
+              <span dir="ltr" lang="en">
+                {t("common.whatsapp")}
+              </span>
+              <span aria-hidden="true">{isRTL ? "↖" : "↗"}</span>
             </motion.a>
           </motion.div>
         </div>

@@ -3,8 +3,8 @@ import { smoothEase } from "./variants";
 
 const imageVariants = {
   hidden: {
-    opacity: 0,
-    scale: 1.08,
+    opacity: 1,
+    scale: 1,
   },
 
   visible: {
@@ -52,7 +52,7 @@ const ProjectReveal = ({
   return (
     <motion.div
       className={`project-reveal ${className}`}
-      initial="hidden"
+      initial={false}
       whileInView="visible"
       viewport={{
         once,

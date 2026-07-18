@@ -1,7 +1,13 @@
 import { siteContact } from "../config/site";
 import projects from "./projects";
-import { calculateAge, profile } from "./profile";
+import {
+  calculateAge,
+  calculateExperienceYears,
+  profile,
+} from "./profile";
 import services from "./services";
+import en from "../i18n/locales/en.json";
+import ar from "../i18n/locales/ar.json";
 
 export const quickQuestions = [
   { label: "About Basel", message: "Tell me about Basel" },
@@ -25,69 +31,92 @@ const isArabicText = (text) => /[\u0600-\u06ff]/.test(text);
 
 const findService = (text) =>
   services.find((service) => {
+    const translatedService = ar.services.items[service.id];
     const searchable = [
       service.title,
       service.shortDescription,
       ...service.features,
+      translatedService.title,
+      translatedService.shortDescription,
+      ...translatedService.features,
     ]
       .join(" ")
       .toLocaleLowerCase();
 
-    return service.title
-      .toLocaleLowerCase()
-      .split(" ")
-      .some((word) => word.length > 3 && text.includes(word)) ||
+    return [service.title, translatedService.title].some((title) =>
+      title
+        .toLocaleLowerCase()
+        .split(" ")
+        .some((word) => word.length > 3 && text.includes(word)),
+    ) ||
       searchable.includes(text);
   });
 
 const findProject = (text) =>
-  projects.find((project) =>
-    project.title
-      .toLocaleLowerCase()
-      .split(" ")
-      .some((word) => word.length > 3 && text.includes(word))
-  );
+  projects.find((project) => {
+    const titles = [project.title, ar.projects.items[project.id].title];
+    return titles.some((title) =>
+      title
+        .toLocaleLowerCase()
+        .split(" ")
+        .some((word) => word.length > 3 && text.includes(word)),
+    );
+  });
 
 export const getBotResponse = (message) => {
   const text = normalizeText(message);
   const isArabic = isArabicText(message);
+  const locale = isArabic ? ar : en;
   const matchedProject = findProject(text);
   const matchedService = findService(text);
+  const experienceYears = calculateExperienceYears(
+    profile.experience.startDate,
+  );
+  const localizedProject = matchedProject
+    ? locale.projects.items[matchedProject.id]
+    : null;
+  const localizedService = matchedService
+    ? locale.services.items[matchedService.id]
+    : null;
 
   if (matchedProject) {
     return isArabic
-      ? `${matchedProject.title}: ${matchedProject.description} استخدم باسل فيه ${list(matchedProject.technologies)}. يمكنك فتحه من صفحة Projects.`
-      : `${matchedProject.title}: ${matchedProject.description} Basel built it with ${list(matchedProject.technologies)}. You can open it from the Projects page.`;
+      ? `${localizedProject.title}: ${localizedProject.description} استخدم باسل فيه ${list(matchedProject.technologies)}. يمكنك فتحه من صفحة المشاريع.`
+      : `${localizedProject.title}: ${localizedProject.description} Basel built it with ${list(matchedProject.technologies)}. You can open it from the Projects page.`;
   }
 
   if (matchedService) {
     return isArabic
-      ? `خدمة ${matchedService.title}: ${matchedService.description} وتشمل ${list(matchedService.features)}.`
-      : `${matchedService.title}: ${matchedService.description} It includes ${list(matchedService.features)}.`;
+      ? `خدمة ${localizedService.title}: ${localizedService.description} وتشمل ${list(localizedService.features)}.`
+      : `${localizedService.title}: ${localizedService.description} It includes ${list(localizedService.features)}.`;
   }
 
   if (includesAny(text, ["hello", "hi", "hey", "مرحبا", "السلام", "اهلا", "هلا"])) {
     return isArabic
-      ? `أهلًا بك 👋 أنا مساعد ${profile.shortName}. اسألني عن خبرته، خدماته، مشاريعه أو طريقة التواصل معه.`
+      ? `أهلًا بك 👋 أنا مساعد ${ar.footer.name}. اسألني عن خبرته، خدماته، مشاريعه أو طريقة التواصل معه.`
       : `Hello! 👋 I’m ${profile.shortName}’s assistant. Ask me about his experience, services, projects, or contact details.`;
   }
 
   if (includesAny(text, ["about", "who", "experience", "background", "نبذة", "من هو", "مين", "خبرة", "سنوات", "عمر"])) {
     const age = calculateAge(profile.birthDate);
     return isArabic
-      ? `${profile.name}، عمره ${age} عامًا، ${list(profile.roles)} من ${profile.location}. لديه ${profile.experience.years} سنوات من الخبرة وأكثر من ${profile.experience.projects} مشروعًا.`
-      : `${profile.name} is a ${age}-year-old ${list(profile.roles)} based in ${profile.location}, with ${profile.experience.years} years of experience and more than ${profile.experience.projects} projects.`;
+      ? `${ar.footer.name}، عمره ${age} عامًا، ${ar.hero.roleOne} و${ar.hero.roleTwo} من ${ar.hero.location}. لديه ${experienceYears} سنوات من الخبرة وأكثر من ${profile.experience.projects} مشروعًا.`
+      : `${profile.name} is a ${age}-year-old ${list(profile.roles)} based in ${profile.location}, with ${experienceYears} years of experience and more than ${profile.experience.projects} projects.`;
   }
 
   if (includesAny(text, ["service", "offer", "build", "develop", "خدمة", "خدمات", "تقدم", "تطوير", "تصميم", "موقع"])) {
-    const serviceNames = services.map(({ title }) => title);
+    const serviceNames = services.map(
+      ({ id }) => locale.services.items[id].title,
+    );
     return isArabic
       ? `يقدم باسل: ${list(serviceNames)}. اكتب اسم أي خدمة لأعطيك تفاصيلها.`
       : `Basel offers: ${list(serviceNames)}. Ask about any service by name for more details.`;
   }
 
   if (includesAny(text, ["project", "portfolio", "work", "مشروع", "مشاريع", "اعمال", "أعمال"])) {
-    const projectNames = projects.map(({ title }) => title);
+    const projectNames = projects.map(
+      ({ id }) => locale.projects.items[id].title,
+    );
     return isArabic
       ? `من مشاريع باسل: ${list(projectNames)}. اكتب اسم أي مشروع لمعرفة تفاصيله.`
       : `Basel’s projects include: ${list(projectNames)}. Ask about any project by name for details.`;
@@ -101,20 +130,30 @@ export const getBotResponse = (message) => {
 
   if (includesAny(text, ["available", "hire", "job", "freelance", "remote", "متاح", "توظيف", "وظيفة", "عمل حر", "عن بعد"])) {
     return isArabic
-      ? `باسل متاح لـ: ${list(profile.availability)}. يمكنك إرسال تفاصيل الفرصة من صفحة Contact أو واتساب.`
+      ? `باسل متاح لـ: ${list([
+          ar.about.freelance,
+          ar.about.remoteWork,
+          ar.about.internships,
+          ar.about.fullTime,
+        ])}. يمكنك إرسال تفاصيل الفرصة من صفحة التواصل أو واتساب.`
       : `Basel is available for ${list(profile.availability)}. Send the opportunity details through Contact or WhatsApp.`;
   }
 
   if (includesAny(text, ["study", "education", "university", "دراسة", "جامعة", "تخصص", "تعليم"])) {
     return isArabic
-      ? `يدرس باسل ${profile.education.major} في ${profile.education.university}، ومتوقع تخرجه عام ${profile.education.graduationYear}.`
+      ? `يدرس باسل ${ar.about.major} في ${ar.about.university}، ومتوقع تخرجه عام ${profile.education.graduationYear}.`
       : `Basel studies ${profile.education.major} at ${profile.education.university} and expects to graduate in ${profile.education.graduationYear}.`;
   }
 
   if (includesAny(text, ["certificate", "training", "شهادة", "شهادات", "تدريب"])) {
-    const certificates = profile.certificates.map(
-      ({ title, provider }) => `${title} — ${provider}`
-    );
+    const certificates = isArabic
+      ? [
+          `${ar.about.certificateOneTitle} — ${ar.about.certificateOneProvider}`,
+          `${ar.about.certificateTwoTitle} — ${ar.about.certificateTwoProvider}`,
+        ]
+      : profile.certificates.map(
+          ({ title, provider }) => `${title} — ${provider}`,
+        );
     return isArabic
       ? `شهادات وتدريبات باسل: ${list(certificates)}.`
       : `Basel’s certificates and training include ${list(certificates)}.`;
@@ -128,7 +167,7 @@ export const getBotResponse = (message) => {
 
   if (includesAny(text, ["location", "where", "based", "مكان", "وين", "أين", "بلد"])) {
     return isArabic
-      ? `باسل موجود في ${profile.location} ومتاح للعمل عن بُعد.`
+      ? `باسل موجود في ${ar.hero.location} ومتاح للعمل عن بُعد.`
       : `Basel is based in ${profile.location} and is available for remote work.`;
   }
 

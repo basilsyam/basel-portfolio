@@ -2,29 +2,41 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FaComments, FaPaperPlane, FaWhatsapp, FaXmark } from "react-icons/fa6";
 import { siteLinks } from "../../config/site";
-import { getBotResponse, quickQuestions } from "../../data/chatbot";
+import { getBotResponse } from "../../data/chatbot";
+import { useLanguage } from "../../context/LanguageContext";
+import BidiText from "../common/BidiText";
 import "./Chatbot.css";
 
-const createMessage = (sender, text) => ({
+const createMessage = (sender, text, kind = "") => ({
   id: `${Date.now()}-${Math.random()}`,
   sender,
   text,
+  kind,
 });
 
 const Chatbot = () => {
+  const { language, t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
-  const [messages, setMessages] = useState([
-    createMessage(
-      "bot",
-      "Hello! 👋 I’m Basel’s assistant. You can chat with me in English or العربية."
-    ),
+  const [messages, setMessages] = useState(() => [
+    createMessage("bot", t("chatbot.welcome"), "welcome"),
   ]);
+  const quickQuestions = t("chatbot.questions");
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
   const replyTimerRef = useRef(null);
   const pendingMessageRef = useRef("");
+
+  useEffect(() => {
+    setMessages((current) =>
+      current.map((message) =>
+        message.kind === "welcome"
+          ? { ...message, text: t("chatbot.welcome") }
+          : message,
+      ),
+    );
+  }, [language, t]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -96,7 +108,9 @@ const Chatbot = () => {
         {isOpen && (
           <motion.section
             className="chatbot__window"
-            aria-label="Basel virtual assistant"
+            role="dialog"
+            aria-modal="false"
+            aria-label={t("chatbot.windowLabel")}
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
@@ -106,15 +120,15 @@ const Chatbot = () => {
               <div className="chatbot__identity">
                 <span className="chatbot__avatar">B</span>
                 <div>
-                  <strong>Basel Assistant</strong>
-                  <span><i /> Online · عربي / English</span>
+                  <strong>{t("chatbot.assistant")}</strong>
+                  <span><i /> {t("chatbot.online")}</span>
                 </div>
               </div>
               <motion.button
                 type="button"
                 className="chatbot__close"
                 onClick={closeChatbot}
-                aria-label="Close chatbot"
+                aria-label={t("chatbot.close")}
                 whileTap={{ scale: 0.9 }}
               >
                 <FaXmark />
@@ -128,13 +142,13 @@ const Chatbot = () => {
                   dir="auto"
                   className={`chatbot__message chatbot__message--${message.sender}`}
                 >
-                  {message.text}
+                  <BidiText>{message.text}</BidiText>
                 </div>
               ))}
               {isTyping && (
                 <div
                   className="chatbot__message chatbot__message--bot chatbot__typing"
-                  aria-label="Assistant is typing"
+                  aria-label={t("chatbot.typing")}
                 >
                   <span /><span /><span />
                 </div>
@@ -142,7 +156,10 @@ const Chatbot = () => {
               <div ref={messagesEndRef} />
             </div>
 
-            <div className="chatbot__questions" aria-label="Suggested questions">
+            <div
+              className="chatbot__questions"
+              aria-label={t("chatbot.suggestions")}
+            >
               {quickQuestions.map((question) => (
                 <motion.button
                   key={question.label}
@@ -162,14 +179,14 @@ const Chatbot = () => {
                 type="text"
                 value={input}
                 onChange={(event) => setInput(event.target.value)}
-                placeholder="Ask me anything... اسألني"
-                aria-label="Chat message"
+                placeholder={t("chatbot.placeholder")}
+                aria-label={t("chatbot.inputLabel")}
                 autoComplete="off"
               />
               <motion.button
                 type="submit"
                 disabled={!input.trim() || isTyping}
-                aria-label="Send message"
+                aria-label={t("chatbot.send")}
                 whileTap={{ scale: 0.9 }}
               >
                 <FaPaperPlane />
@@ -182,7 +199,7 @@ const Chatbot = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <FaWhatsapp /> Talk directly with Basel
+              <FaWhatsapp /> {t("chatbot.whatsapp")}
             </a>
           </motion.section>
         )}
@@ -192,7 +209,7 @@ const Chatbot = () => {
         type="button"
         className={`chatbot__toggle ${isOpen ? "chatbot__toggle--open" : ""}`}
         onClick={toggleChatbot}
-        aria-label={isOpen ? "Close chatbot" : "Chat with Basel assistant"}
+        aria-label={isOpen ? t("chatbot.close") : t("chatbot.open")}
         aria-expanded={isOpen}
         whileTap={{ scale: 0.92 }}
       >
@@ -201,7 +218,7 @@ const Chatbot = () => {
         </span>
         {!isOpen && (
           <span className="chatbot__toggle-label">
-            <strong>Chatbot</strong>
+            <strong>{t("chatbot.label")}</strong>
           </span>
         )}
         {!isOpen && <span className="chatbot__notification">1</span>}

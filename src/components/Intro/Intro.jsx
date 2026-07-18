@@ -9,22 +9,8 @@ import { Link } from "react-router-dom";
 import Reveal from "../../animation/Reveal";
 import { smoothEase } from "../../animation/variants";
 import useIsMobile from "../../hooks/useIsMobile";
+import { useLanguage } from "../../context/LanguageContext";
 import "./Intro.css";
-
-const titleParts = [
-  {
-    text: "I turn ideas into",
-    highlighted: false,
-  },
-  {
-    text: "fast, responsive and user-friendly",
-    highlighted: true,
-  },
-  {
-    text: "digital experiences.",
-    highlighted: false,
-  },
-];
 
 const titleContainerVariants = {
   hidden: {},
@@ -39,9 +25,9 @@ const titleContainerVariants = {
 
 const wordVariants = {
   hidden: {
-    opacity: 0,
-    y: "110%",
-    rotate: 2,
+    opacity: 1,
+    y: "0%",
+    rotate: 0,
   },
 
   visible: {
@@ -61,6 +47,11 @@ const Intro = () => {
   const shouldReduceMotion = useReducedMotion();
   const isMobile = useIsMobile();
   const disableParallax = shouldReduceMotion || isMobile;
+  const { isRTL, t } = useLanguage();
+  const titleParts = t("intro.parts").map((text, index) => ({
+    text,
+    highlighted: index === 1,
+  }));
 
   const { scrollYProgress } = useScroll({
     target: introRef,
@@ -91,14 +82,14 @@ const Intro = () => {
       <div className="intro__content">
         <Reveal direction="up">
           <p className="intro__eyebrow">
-            About me
+            {t("intro.eyebrow")}
           </p>
         </Reveal>
 
         <motion.h2
           id="intro-title"
           className="intro__title"
-          aria-label="I turn ideas into fast, responsive and user-friendly digital experiences."
+          aria-label={t("intro.title")}
           variants={titleContainerVariants}
           initial={
             shouldReduceMotion ? false : "hidden"
@@ -138,10 +129,7 @@ const Intro = () => {
         <div className="intro__bottom">
           <Reveal direction="up" delay={0.15}>
             <p className="intro__description">
-              I’m Basel Seyam, a Software Engineer and
-              Frontend Developer with four years of
-              experience building modern web interfaces
-              and practical software solutions.
+              {t("intro.description")}
             </p>
           </Reveal>
 
@@ -172,9 +160,9 @@ const Intro = () => {
               <Link
                 to="/about"
                 className="intro__link"
-                aria-label="More about Basel Seyam"
+                aria-label={t("intro.moreLabel")}
               >
-                <span>More about me</span>
+                <span>{t("intro.more")}</span>
 
                 <motion.span
                   className="intro__link-arrow"
@@ -194,7 +182,7 @@ const Intro = () => {
                     ease: "easeInOut",
                   }}
                 >
-                  ↗
+                  {isRTL ? "↖" : "↗"}
                 </motion.span>
               </Link>
             </motion.div>

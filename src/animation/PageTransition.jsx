@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { smoothEase } from "./variants";
 import "./PageTransition.css";
@@ -66,6 +66,16 @@ const PageTransition = ({
   const [isTransitionComplete, setIsTransitionComplete] = useState(
     isInitialLoad
   );
+
+  useEffect(() => {
+    if (isTransitionComplete) return undefined;
+
+    const safetyTimer = window.setTimeout(() => {
+      setIsTransitionComplete(true);
+    }, 1200);
+
+    return () => window.clearTimeout(safetyTimer);
+  }, [isTransitionComplete]);
 
   if (shouldReduceMotion) {
     return <main className="page-transition__content">{children}</main>;

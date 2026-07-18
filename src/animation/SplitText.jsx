@@ -15,9 +15,9 @@ const containerVariants = {
 
 const letterVariants = {
   hidden: {
-    opacity: 0,
-    y: "110%",
-    rotate: 3,
+    opacity: 1,
+    y: "0%",
+    rotate: 0,
   },
 
   visible: {
@@ -45,6 +45,7 @@ const SplitText = ({
   }
 
   const words = text.split(" ");
+  const isArabic = /[\u0600-\u06ff]/.test(text);
 
   return (
     <motion.span
@@ -61,7 +62,7 @@ const SplitText = ({
       {words.map((word, wordIndex) => (
         <Fragment key={`${word}-${wordIndex}`}>
           <span className="split-text__word" aria-hidden="true">
-            {word.split("").map((letter, letterIndex) => (
+            {(isArabic ? [word] : word.split("")).map((letter, letterIndex) => (
               <span
                 className="split-text__mask"
                 key={`${letter}-${wordIndex}-${letterIndex}`}

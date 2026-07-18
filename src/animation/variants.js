@@ -7,7 +7,7 @@ export const motionDuration = {
 
 export const fadeUpVariants = {
   hidden: {
-    opacity: 0,
+    opacity: 1,
     y: 50,
   },
 
@@ -24,7 +24,7 @@ export const fadeUpVariants = {
 
 export const fadeLeftVariants = {
   hidden: {
-    opacity: 0,
+    opacity: 1,
     x: -60,
   },
 
@@ -41,7 +41,7 @@ export const fadeLeftVariants = {
 
 export const fadeRightVariants = {
   hidden: {
-    opacity: 0,
+    opacity: 1,
     x: 60,
   },
 
@@ -58,7 +58,7 @@ export const fadeRightVariants = {
 
 export const scaleVariants = {
   hidden: {
-    opacity: 0,
+    opacity: 1,
     scale: 0.92,
   },
 

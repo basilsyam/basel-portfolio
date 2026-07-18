@@ -239,6 +239,34 @@
   font-size: 0.7rem;
 }
 
+.about-info-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.about-info-card__icon {
+  width: clamp(64px, 5vw, 82px);
+  height: clamp(64px, 5vw, 82px);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border: 1px solid rgba(32, 33, 36, 0.12);
+  border-radius: 50%;
+  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.34);
+  font-size: clamp(1.45rem, 2vw, 2rem);
+  transition:
+    transform 300ms ease,
+    background-color 300ms ease;
+}
+
+.about-info-card:not(.about-info-card--yellow) .about-info-card__icon {
+  color: var(--color-primary-dark);
+  background: rgba(243, 196, 51, 0.16);
+}
+
 .about-info-card__content {
   margin-top: auto;
   display: flex;
@@ -345,6 +373,34 @@
   font-size: 0.7rem;
 }
 
+.certificate-card__top,
+.skill-box__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.certificate-card__icon {
+  width: 70px;
+  height: 70px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(32, 33, 36, 0.13);
+  border-radius: 50%;
+  color: var(--color-primary-dark);
+  background: rgba(243, 196, 51, 0.16);
+  font-size: 1.8rem;
+  transition:
+    color 300ms ease,
+    background-color 300ms ease;
+}
+
+.certificate-card:hover .certificate-card__icon {
+  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.35);
+}
+
 .certificate-card div {
   margin-top: auto;
 }
@@ -400,6 +456,27 @@
 .skill-box span {
   color: rgba(32, 33, 36, 0.6);
   font-size: 0.7rem;
+}
+
+.skill-box__icon {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border: 1px solid rgba(32, 33, 36, 0.13);
+  border-radius: 14px;
+  color: var(--color-text) !important;
+  background: rgba(255, 255, 255, 0.3);
+  font-size: 1.35rem !important;
+  transition:
+    transform 300ms ease,
+    background-color 300ms ease;
+}
+
+.skill-box:hover .skill-box__icon {
+  background: rgba(255, 255, 255, 0.6);
+  transform: translateY(-3px) rotate(4deg);
 }
 
 .skill-box h3 {

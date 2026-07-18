@@ -20,6 +20,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Alexandria";
+  src: url("./font/Alexandria-Variable.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -30,8 +38,139 @@ body {
   min-height: 100%;
 }
 
+html[dir="rtl"] body {
+  font-family: "Alexandria", Tahoma, Arial, sans-serif;
+  text-align: right;
+}
+
+.technical-term {
+  display: inline-block;
+  direction: ltr;
+  unicode-bidi: isolate;
+  text-align: left;
+}
+
+html[dir="rtl"] input,
+html[dir="rtl"] textarea,
+html[dir="rtl"] select {
+  text-align: right;
+}
+
+html[dir="rtl"] input[type="email"],
+html[dir="rtl"] input[name="budget"] {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: isolate;
+}
+
+html[dir="rtl"] .hero__availability {
+  right: 4vw;
+  left: auto;
+}
+
+html[dir="rtl"] .hero__location {
+  right: 0;
+  left: auto;
+  padding: 20px 4vw 20px 22px;
+  border-radius: 80px 0 0 80px;
+}
+
+html[dir="rtl"] .hero__role {
+  right: auto;
+  left: 7%;
+}
+
+html[dir="rtl"] .hero__arrow {
+  transform: scaleX(-1);
+}
+
+html[dir="rtl"] .hero__projects-button {
+  right: auto;
+  left: 4vw;
+}
+
+html[dir="rtl"] .navbar__active-indicator {
+  right: auto;
+  left: 16px;
+}
+
+html[dir="rtl"] .service-card__toggle {
+  text-align: right;
+}
+
+html[dir="rtl"] .intro__description {
+  margin-right: auto;
+  margin-left: 0;
+}
+
+html[dir="rtl"] .project__open {
+  right: auto;
+  left: 30px;
+}
+
+html[dir="rtl"] .project-card__number {
+  right: 18px;
+  left: auto;
+}
+
+html[dir="rtl"] .chatbot__message--bot {
+  margin-right: 0;
+  margin-left: auto;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 17px;
+}
+
+html[dir="rtl"] .chatbot__message--user {
+  margin-right: auto;
+  margin-left: 0;
+  border-bottom-right-radius: 17px;
+  border-bottom-left-radius: 5px;
+}
+
+html[dir="rtl"] .chatbot__identity i {
+  margin-right: 0;
+  margin-left: 5px;
+}
+
 html {
   scroll-behavior: smooth;
+  scrollbar-color: var(--color-primary) var(--color-dark);
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  min-height: 48px;
+  border: 3px solid var(--color-dark);
+  border-radius: 999px;
+  background: var(--color-primary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-dark);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--color-dark);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
 }
 
 body {

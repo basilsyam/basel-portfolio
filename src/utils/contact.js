@@ -8,7 +8,10 @@ export const getEmailJsConfig = (environment = process.env) => {
   return { serviceId, templateId, publicKey };
 };
 
-export const getContactErrorMessage = (error) =>
+export const getContactErrorMessage = (
+  error,
+  fallback = "The message could not be sent. Please try again or use WhatsApp.",
+) =>
   error?.text ||
   error?.message ||
-  "The message could not be sent. Please try again or use WhatsApp.";
+  fallback;

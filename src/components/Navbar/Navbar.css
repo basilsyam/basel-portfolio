@@ -92,6 +92,28 @@
   transform: translateX(-50%);
 }
 
+.navbar__language-button {
+  min-width: 54px;
+  min-height: 40px;
+  padding: 8px 13px;
+  border: 1px solid rgba(243, 196, 51, 0.72);
+  border-radius: 999px;
+  color: var(--color-white);
+  background: rgba(23, 24, 27, 0.62);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.navbar__mobile-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 /* ================= Menu Button ================= */
 
 .menu-button {
@@ -220,6 +242,27 @@
 
   .navbar__item {
     width: 100%;
+  }
+
+  .navbar__language-button {
+    width: 100%;
+    min-height: 48px;
+    margin-top: 4px;
+    color: var(--color-dark);
+    background: var(--color-primary);
+  }
+
+  .navbar__language-button--mobile {
+    position: relative;
+    z-index: 1002;
+    width: 46px;
+    min-width: 46px;
+    height: 46px;
+    min-height: 46px;
+    margin-top: 0;
+    padding: 0;
+    color: var(--color-white);
+    background: rgba(23, 24, 27, 0.96);
   }
 
   .navbar__link {

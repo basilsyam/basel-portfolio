@@ -14,34 +14,36 @@ import {
   getContactErrorMessage,
   getEmailJsConfig,
 } from "../utils/contact";
+import { useLanguage } from "../context/LanguageContext";
+import TechnicalText from "../components/common/TechnicalText";
 
 import "./Contact.css";
 
 const contactMethods = [
   {
     id: 1,
-    label: "Email",
+    labelKey: "contact.email",
     value: siteContact.email,
     href: siteLinks.email,
     icon: <FaEnvelope />,
   },
   {
     id: 2,
-    label: "WhatsApp",
+    labelKey: "common.whatsapp",
     value: siteContact.phoneDisplay,
     href: siteLinks.whatsapp,
     icon: <FaWhatsapp />,
   },
   {
     id: 3,
-    label: "Phone",
+    labelKey: "contact.phone",
     value: siteContact.phoneDisplay,
     href: siteLinks.phone,
     icon: <FaPhone />,
   },
   {
     id: 4,
-    label: "Location",
+    labelKey: "contact.location",
     value: siteContact.location,
     href: null,
     icon: <FaLocationDot />,
@@ -69,6 +71,7 @@ const Contact = () => {
   const formRef = useRef(null);
   const [isSending, setIsSending] = useState(false);
   const [status, setStatus] = useState(initialStatus);
+  const { isRTL, t } = useLanguage();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -80,8 +83,7 @@ const Contact = () => {
     if (!emailJsConfig) {
       setStatus({
         type: "error",
-        message:
-          "Email configuration is missing. Please check the .env file.",
+        message: t("contact.missingConfig"),
       });
       return;
     }
@@ -91,7 +93,7 @@ const Contact = () => {
     if (formData.get("company")) {
       setStatus({
         type: "success",
-        message: "Your message was sent successfully.",
+        message: t("contact.success"),
       });
       return;
     }
@@ -99,7 +101,7 @@ const Contact = () => {
     setIsSending(true);
     setStatus({
       type: "loading",
-      message: "Sending your message...",
+      message: t("contact.statusSending"),
     });
 
     try {
@@ -114,14 +116,16 @@ const Contact = () => {
 
       setStatus({
         type: "success",
-        message: "Your message was sent successfully!",
+        message: t("contact.success"),
       });
 
       formRef.current.reset();
     } catch (error) {
       setStatus({
         type: "error",
-        message: getContactErrorMessage(error),
+        message: isRTL
+          ? t("contact.error")
+          : getContactErrorMessage(error, t("contact.error")),
       });
     } finally {
       setIsSending(false);
@@ -132,37 +136,37 @@ const Contact = () => {
     <div className="contact-page">
       <motion.section
         className="contact"
-        initial={{ opacity: 0 }}
+        aria-labelledby="contact-title"
+        initial={{ opacity: 1 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
       >
         <div className="contact__container">
           <motion.header
             className="contact__header"
-            initial={{ opacity: 0, y: 45 }}
+            initial={{ opacity: 1, y: 45 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
               duration: 0.8,
               ease: smoothEase,
             }}
           >
-            <p className="contact__eyebrow">Get in touch</p>
+            <p className="contact__eyebrow">{t("contact.eyebrow")}</p>
 
-            <h1 className="contact__title">
-              Let&apos;s build something
-              <span> meaningful together.</span>
+            <h1 id="contact-title" className="contact__title">
+              {t("contact.titleStart")}
+              <span>{t("contact.titleHighlight")}</span>
             </h1>
 
             <p className="contact__introduction">
-              Have a project, opportunity or idea? Send me a message and
-              I&apos;ll get back to you as soon as possible.
+              {t("contact.introduction")}
             </p>
           </motion.header>
 
           <div className="contact__layout">
             <motion.aside
               className="contact__details"
-              initial={{ opacity: 0, x: -45 }}
+              initial={{ opacity: 1, x: isRTL ? 45 : -45 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{
                 duration: 0.8,
@@ -170,7 +174,7 @@ const Contact = () => {
                 ease: smoothEase,
               }}
             >
-              <p className="contact__details-label">Contact details</p>
+              <p className="contact__details-label">{t("contact.details")}</p>
 
               <div className="contact__methods">
                 {contactMethods.map((method) => {
@@ -181,8 +185,14 @@ const Contact = () => {
                       </span>
 
                       <span>
-                        <small>{method.label}</small>
-                        <strong>{method.value}</strong>
+                        <small>{t(method.labelKey)}</small>
+                        {method.id === 4 ? (
+                          <strong>{t("hero.location")}</strong>
+                        ) : (
+                          <TechnicalText as="strong">
+                            {method.value}
+                          </TechnicalText>
+                        )}
                       </span>
                     </>
                   );
@@ -219,7 +229,7 @@ const Contact = () => {
               className="contact__form"
               onSubmit={handleSubmit}
               aria-busy={isSending}
-              initial={{ opacity: 0, y: 55 }}
+              initial={{ opacity: 1, y: 55 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
                 duration: 0.8,
@@ -250,13 +260,13 @@ const Contact = () => {
 
               <div className="contact__row">
                 <div className="contact__field">
-                  <label htmlFor="user_name">Your name</label>
+                  <label htmlFor="user_name">{t("contact.name")}</label>
 
                   <input
                     id="user_name"
                     type="text"
                     name="user_name"
-                    placeholder="Enter your name"
+                    placeholder={t("contact.namePlaceholder")}
                     autoComplete="name"
                     minLength="2"
                     required
@@ -273,7 +283,7 @@ const Contact = () => {
                 </div>
 
                 <div className="contact__field">
-                  <label htmlFor="user_email">Your email</label>
+                  <label htmlFor="user_email">{t("contact.emailLabel")}</label>
 
                   <input
                     id="user_email"
@@ -297,42 +307,42 @@ const Contact = () => {
 
               <div className="contact__row">
                 <div className="contact__field">
-                  <label htmlFor="service">Service</label>
+                  <label htmlFor="service">{t("contact.service")}</label>
 
                   <select id="service" name="service" defaultValue="" required>
                     <option value="" disabled>
-                      Choose a service
+                      {t("contact.chooseService")}
                     </option>
 
                     {services.map((service) => (
                       <option key={service.id} value={service.title}>
-                        {service.title}
+                        {t(`services.items.${service.id}.title`)}
                       </option>
                     ))}
-                    <option value="Other">Other</option>
+                    <option value="Other">{t("contact.other")}</option>
                   </select>
                 </div>
 
                 <div className="contact__field">
-                  <label htmlFor="budget">Estimated budget</label>
+                  <label htmlFor="budget">{t("contact.budget")}</label>
 
                   <input
                     id="budget"
                     type="text"
                     name="budget"
-                    placeholder="Example: $500"
+                    placeholder={t("contact.budgetPlaceholder")}
                   />
                 </div>
               </div>
 
               <div className="contact__field">
-                <label htmlFor="message">Tell me about your project</label>
+                <label htmlFor="message">{t("contact.message")}</label>
 
                 <textarea
                   id="message"
                   name="message"
                   rows="7"
-                  placeholder="Write your message here..."
+                  placeholder={t("contact.messagePlaceholder")}
                   minLength="10"
                   required
                 />
@@ -345,8 +355,12 @@ const Contact = () => {
                 whileHover={!isSending ? { scale: 1.02 } : undefined}
                 whileTap={!isSending ? { scale: 0.97 } : undefined}
               >
-                <span>{isSending ? "Sending..." : "Send message"}</span>
-                <span aria-hidden="true">{isSending ? "..." : "↗"}</span>
+                <span>
+                  {isSending ? t("contact.sending") : t("contact.send")}
+                </span>
+                <span aria-hidden="true">
+                  {isSending ? "..." : isRTL ? "↖" : "↗"}
+                </span>
               </motion.button>
 
               {status.message && (

@@ -13,7 +13,7 @@ export const profile = {
   },
 
   experience: {
-    years: 4,
+    startDate: "2022-01-01",
     projects: 15,
   },
 
@@ -66,20 +66,25 @@ export const profile = {
   ],
 };
 
-export const calculateAge = (birthDate) => {
-  const today = new Date();
-  const birth = new Date(`${birthDate}T00:00:00`);
+const calculateFullYears = (startDate, referenceDate = new Date()) => {
+  const start = new Date(`${startDate}T00:00:00`);
 
-  let age = today.getFullYear() - birth.getFullYear();
+  let years = referenceDate.getFullYear() - start.getFullYear();
 
-  const birthdayPassed =
-    today.getMonth() > birth.getMonth() ||
-    (today.getMonth() === birth.getMonth() &&
-      today.getDate() >= birth.getDate());
+  const anniversaryPassed =
+    referenceDate.getMonth() > start.getMonth() ||
+    (referenceDate.getMonth() === start.getMonth() &&
+      referenceDate.getDate() >= start.getDate());
 
-  if (!birthdayPassed) {
-    age -= 1;
+  if (!anniversaryPassed) {
+    years -= 1;
   }
 
-  return age;
+  return Math.max(0, years);
 };
+
+export const calculateAge = (birthDate, referenceDate) =>
+  calculateFullYears(birthDate, referenceDate);
+
+export const calculateExperienceYears = (startDate, referenceDate) =>
+  calculateFullYears(startDate, referenceDate);

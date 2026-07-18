@@ -9,9 +9,9 @@ import {
 import { Link } from "react-router-dom";
 import { HiOutlineArrowDownRight } from "react-icons/hi2";
 import { TbWorld } from "react-icons/tb";
-import { profile } from "../../data/profile";
 import { smoothEase } from "../../animation/variants";
 import useIsMobile from "../../hooks/useIsMobile";
+import { useLanguage } from "../../context/LanguageContext";
 import "./Hero.css";
 
 const ease = smoothEase;
@@ -105,9 +105,16 @@ const letterVariants = {
 };
 
 const SplitText = ({ children }) => {
+  const isArabic = /[\u0600-\u06ff]/.test(children);
+  const segments = isArabic
+    ? children.split(" ").map((word, index, words) =>
+        index < words.length - 1 ? `${word}\u00A0` : word,
+      )
+    : children.split("");
+
   return (
     <span className="hero__split-line" aria-label={children}>
-      {children.split("").map((letter, index) => (
+      {segments.map((letter, index) => (
         <span className="hero__letter-mask" aria-hidden="true" key={index}>
           <motion.span
             className="hero__letter"
@@ -126,6 +133,12 @@ const Hero = () => {
   const shouldReduceMotion = useReducedMotion();
   const isMobile = useIsMobile();
   const disableParallax = shouldReduceMotion || isMobile;
+  const { isRTL, t } = useLanguage();
+  const marqueeItems = [
+    t("footer.name"),
+    t("hero.roleOne"),
+    t("hero.roleTwo"),
+  ];
 
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -168,6 +181,7 @@ const Hero = () => {
     <motion.section
       ref={heroRef}
       className="hero"
+      aria-labelledby="home-title"
       variants={containerVariants}
       initial={false}
       animate="visible"
@@ -175,6 +189,10 @@ const Hero = () => {
         opacity: disableParallax ? 1 : heroOpacity,
       }}
     >
+      <h1 id="home-title" className="visually-hidden">
+        {t("hero.title")}
+      </h1>
+
       {/* طبقة خلفية Parallax */}
       <motion.div
         className="hero__parallax-background"
@@ -200,7 +218,7 @@ const Hero = () => {
 
           <img
             src={`${process.env.PUBLIC_URL}/images/basel-hero.jpg`}
-            alt={profile.shortName}
+            alt={t("footer.name")}
             width="1672"
             height="941"
             loading="eager"
@@ -223,7 +241,7 @@ const Hero = () => {
         }
       >
         <span className="hero__availability-dot" />
-        <span>Available for work</span>
+        <span>{t("hero.available")}</span>
       </motion.div>
 
       {/* الموقع */}
@@ -242,8 +260,8 @@ const Hero = () => {
         }
       >
         <div className="hero__location-text">
-          <span>Located in</span>
-          <span>{profile.location}</span>
+          <span>{t("hero.located")}</span>
+          <span>{t("hero.location")}</span>
         </div>
 
         <motion.div
@@ -282,8 +300,8 @@ const Hero = () => {
         </motion.div>
 
         <motion.p variants={splitContainerVariants}>
-          <SplitText>Software Engineer</SplitText>
-          <SplitText>Frontend Developer</SplitText>
+          <SplitText>{t("hero.roleOne")}</SplitText>
+          <SplitText>{t("hero.roleTwo")}</SplitText>
         </motion.p>
       </motion.div>
 
@@ -292,29 +310,23 @@ const Hero = () => {
         variants={fadeUpVariants}
       >
         <div className="hero__name-track">
-          <div className="hero__name-group">
-            <span className="hero__name">— Basel Seyam</span>
-            <span className="hero__name">— Software Engineer</span>
-            <span className="hero__name">— Frontend Developer</span>
-          </div>
-
-          <div className="hero__name-group" aria-hidden="true">
-            <span className="hero__name">— Basel Seyam</span>
-            <span className="hero__name">— Software Engineer</span>
-            <span className="hero__name">— Frontend Developer</span>
-          </div>
-          
-          <div className="hero__name-group" aria-hidden="true">
-            <span className="hero__name">— Basel Seyam</span>
-            <span className="hero__name">— Software Engineer</span>
-            <span className="hero__name">— Frontend Developer</span>
-          </div>
-          
-          <div className="hero__name-group" aria-hidden="true">
-            <span className="hero__name">— Basel Seyam</span>
-            <span className="hero__name">— Software Engineer</span>
-            <span className="hero__name">— Frontend Developer</span>
-          </div>
+          {Array.from({ length: 4 }, (_, groupIndex) => (
+            <div
+              className="hero__name-group"
+              aria-hidden={groupIndex > 0 ? "true" : undefined}
+              key={groupIndex}
+            >
+              {marqueeItems.map((item) => (
+                <span
+                  className="hero__name"
+                  dir={isRTL ? "rtl" : "ltr"}
+                  key={item}
+                >
+                  — {item}
+                </span>
+              ))}
+            </div>
+          ))}
         </div>
       </motion.div>
 
@@ -327,7 +339,7 @@ const Hero = () => {
             ? undefined
             : {
                 scale: 1.07,
-                rotate: -4,
+                rotate: isRTL ? 4 : -4,
               }
         }
         whileTap={
@@ -342,10 +354,10 @@ const Hero = () => {
         <Link
           to="/projects"
           className="hero__projects-link"
-          aria-label="View my projects"
+          aria-label={t("hero.viewProjects")}
         >
-          <span>View my</span>
-          <span>work ↗</span>
+          <span>{t("hero.viewMy")}</span>
+          <span>{t("hero.work")}</span>
         </Link>
       </motion.div>
     </motion.section>

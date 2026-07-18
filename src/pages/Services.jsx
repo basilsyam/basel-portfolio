@@ -13,6 +13,9 @@ import ContactCTA from "../components/ContactCTA/ContactCTA";
 import services from "../data/services";
 import useIsMobile from "../hooks/useIsMobile";
 import { scrollToSection } from "../utils/scroll";
+import { useLanguage } from "../context/LanguageContext";
+import BidiText from "../components/common/BidiText";
+import { serviceIcons } from "../config/contentIcons";
 
 import "./Services.css";
 
@@ -29,7 +32,7 @@ const cardsContainerVariants = {
 
 const cardVariants = {
   hidden: {
-    opacity: 0,
+    opacity: 1,
     y: 55,
     scale: 0.96,
   },
@@ -52,6 +55,9 @@ const Services = () => {
   const shouldReduceMotion = useReducedMotion();
   const isMobile = useIsMobile();
   const disableParallax = shouldReduceMotion || isMobile;
+  const { isRTL, t } = useLanguage();
+  const titleParts = t("services.titleParts");
+  const sectionParts = t("services.sectionParts");
 
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -95,7 +101,7 @@ const Services = () => {
                 shouldReduceMotion
                   ? false
                   : {
-                      opacity: 0,
+                      opacity: 1,
                       y: 25,
                     }
               }
@@ -109,24 +115,24 @@ const Services = () => {
                 ease: smoothEase,
               }}
             >
-              What I do
+              {t("services.eyebrow")}
             </motion.p>
 
             <h1
               id="services-title"
               className="services-hero__title"
-              aria-label="Digital solutions built around your ideas."
+              aria-label={t("services.title")}
             >
               <span className="services-title-line">
-                <SplitText text="Digital solutions" />
+                <SplitText text={titleParts[0]} />
               </span>
 
               <span className="services-title-line">
-                <SplitText text="built around" />
+                <SplitText text={titleParts[1]} />
               </span>
 
               <span className="services-title-line services-title-line--muted">
-                <SplitText text="your ideas." />
+                <SplitText text={titleParts[2]} />
               </span>
             </h1>
 
@@ -136,7 +142,7 @@ const Services = () => {
                 shouldReduceMotion
                   ? false
                   : {
-                      opacity: 0,
+                      opacity: 1,
                       y: 30,
                     }
               }
@@ -150,15 +156,12 @@ const Services = () => {
                 ease: smoothEase,
               }}
             >
-              <p>
-                From responsive interfaces to practical management systems, I
-                build digital experiences that are fast, clear and easy to use.
-              </p>
+              <p>{t("services.introduction")}</p>
 
               <motion.button
                 type="button"
                 className="services-scroll-button"
-                aria-label="Scroll to services"
+                aria-label={t("services.scroll")}
                 onClick={() =>
                   scrollToSection("services-list", shouldReduceMotion)
                 }
@@ -192,18 +195,17 @@ const Services = () => {
         <div className="services-container">
           <div className="services-list__header">
             <div>
-              <p className="services-label">Services</p>
+              <p className="services-label">{t("services.sectionLabel")}</p>
 
               <h2 id="services-list-title">
-                How I can help
+                {sectionParts[0]}
                 <br />
-                your project.
+                {sectionParts[1]}
               </h2>
             </div>
 
             <p className="services-list__description">
-              Select any service to view more information about what it
-              includes.
+              {t("services.instruction")}
             </p>
           </div>
 
@@ -219,6 +221,10 @@ const Services = () => {
           >
             {services.map((service) => {
               const isActive = activeService === service.id;
+              const localizedService = t(
+                `services.items.${service.id}`,
+              );
+              const ServiceIcon = serviceIcons[service.id];
 
               return (
                 <motion.article
@@ -249,8 +255,22 @@ const Services = () => {
                       {service.number}
                     </span>
 
+                    <motion.span
+                      className="service-card__visual"
+                      aria-hidden="true"
+                      whileHover={
+                        shouldReduceMotion
+                          ? undefined
+                          : { scale: 1.08, rotate: isRTL ? -5 : 5 }
+                      }
+                    >
+                      <ServiceIcon />
+                    </motion.span>
+
                     <div className="service-card__heading">
-                      <h3>{service.title}</h3>
+                      <BidiText as="h3">
+                        {localizedService.title}
+                      </BidiText>
 
                       <motion.span
                         className="service-card__icon"
@@ -266,7 +286,9 @@ const Services = () => {
                       </motion.span>
                     </div>
 
-                    <p>{service.shortDescription}</p>
+                    <BidiText as="p">
+                      {localizedService.shortDescription}
+                    </BidiText>
                   </motion.button>
 
                   <AnimatePresence initial={false}>
@@ -301,10 +323,12 @@ const Services = () => {
                         }}
                       >
                         <div className="service-card__content-inner">
-                          <p>{service.description}</p>
+                          <BidiText as="p">
+                            {localizedService.description}
+                          </BidiText>
 
                           <ul>
-                            {service.features.map((feature) => (
+                            {localizedService.features.map((feature) => (
                               <motion.li
                                 key={feature}
                                 initial={
@@ -312,7 +336,7 @@ const Services = () => {
                                     ? false
                                     : {
                                         opacity: 0,
-                                        x: -15,
+                                        x: isRTL ? 15 : -15,
                                       }
                                 }
                                 animate={{
@@ -324,7 +348,7 @@ const Services = () => {
                                 }}
                               >
                                 <span aria-hidden="true">↳</span>
-                                {feature}
+                                <BidiText>{feature}</BidiText>
                               </motion.li>
                             ))}
                           </ul>
@@ -337,7 +361,7 @@ const Services = () => {
                               to="/contact"
                               className="service-card__contact"
                             >
-                              Discuss this service ↗
+                              {t("services.discuss")}
                             </Link>
                           </motion.div>
                         </div>

@@ -4,18 +4,20 @@ import PageTransition from "../animation/PageTransition";
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
 import Chatbot from "../components/Chatbot/Chatbot";
+import { useLanguage } from "../context/LanguageContext";
 
 const pageDetails = {
-  "/": { label: "Home", number: "01" },
-  "/about": { label: "About", number: "02" },
-  "/services": { label: "Services", number: "03" },
-  "/projects": { label: "Projects", number: "04" },
-  "/contact": { label: "Contact", number: "05" },
+  "/": { labelKey: "pages.home", number: "01" },
+  "/about": { labelKey: "pages.about", number: "02" },
+  "/services": { labelKey: "pages.services", number: "03" },
+  "/projects": { labelKey: "pages.projects", number: "04" },
+  "/contact": { labelKey: "pages.contact", number: "05" },
 };
 
 const MainLayout = () => {
   const location = useLocation();
   const hasMounted = useRef(false);
+  const { t } = useLanguage();
   const currentPage = pageDetails[location.pathname] || pageDetails["/"];
 
   useEffect(() => {
@@ -39,7 +41,7 @@ const MainLayout = () => {
       <PageTransition
         key={location.pathname}
         isInitialLoad={isInitialLoad}
-        pageLabel={currentPage.label}
+        pageLabel={t(currentPage.labelKey)}
         pageNumber={currentPage.number}
       >
         <Suspense
@@ -47,7 +49,7 @@ const MainLayout = () => {
             <div
               className="page-loader"
               role="status"
-              aria-label="Loading page"
+              aria-label={t("common.loading")}
             >
               <span />
             </div>

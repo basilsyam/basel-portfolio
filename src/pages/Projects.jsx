@@ -4,6 +4,9 @@ import { smoothEase } from "../animation/variants";
 import { projectFilters } from "../config/site";
 import projects from "../data/projects";
 import OptimizedImage from "../components/common/OptimizedImage";
+import TechnicalText from "../components/common/TechnicalText";
+import BidiText from "../components/common/BidiText";
+import { useLanguage } from "../context/LanguageContext";
 import "./Projects.css";
 
 const containerVariants = {
@@ -17,7 +20,7 @@ const containerVariants = {
 
 const projectVariants = {
   hidden: {
-    opacity: 0,
+    opacity: 1,
     y: 70,
   },
 
@@ -43,6 +46,7 @@ const projectVariants = {
 
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState("All");
+  const { isRTL, t } = useLanguage();
 
   const filteredProjects = useMemo(() => {
     if (activeFilter === "All") {
@@ -54,42 +58,47 @@ const Projects = () => {
 
   return (
     <div className="projects-page">
-      <section className="projects-hero">
+      <section className="projects-hero" aria-labelledby="projects-title">
         <motion.div
           className="projects-hero__content"
-          initial={{ opacity: 0, y: 60 }}
+          initial={{ opacity: 1, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
             duration: 0.9,
             ease: smoothEase,
           }}
         >
-          <p className="projects-hero__eyebrow">Selected projects</p>
+          <p className="projects-hero__eyebrow">
+            {t("projects.eyebrow")}
+          </p>
 
-          <h1 className="projects-hero__title">
-            Projects built with
-            <span> purpose and precision.</span>
+          <h1 id="projects-title" className="projects-hero__title">
+            {t("projects.titleStart")}
+            <span>{t("projects.titleHighlight")}</span>
           </h1>
 
           <div className="projects-hero__bottom">
-            <p>
-              A collection of frontend, full-stack, API and progressive web
-              applications designed to solve practical problems and create
-              enjoyable digital experiences.
-            </p>
+            <BidiText as="p">{t("projects.introduction")}</BidiText>
 
             <span className="projects-hero__count">
-              {String(projects.length).padStart(2, "0")} Projects
+              {t("projects.count", {
+                count: String(projects.length).padStart(2, "0"),
+              })}
             </span>
           </div>
         </motion.div>
       </section>
 
-      <section className="projects-list">
+      <section
+        className="projects-list"
+        aria-label={t("projects.portfolioLabel")}
+      >
         <div className="projects-list__container">
           <motion.div
             className="projects-filters"
-            initial={{ opacity: 0, y: 25 }}
+            role="group"
+            aria-label={t("projects.filterLabel")}
+            initial={{ opacity: 1, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.5 }}
           >
@@ -104,7 +113,7 @@ const Projects = () => {
                 whileTap={{ scale: 0.94 }}
                 aria-pressed={activeFilter === filter}
               >
-                {filter}
+                <BidiText>{t(`projects.filters.${filter}`)}</BidiText>
               </motion.button>
             ))}
           </motion.div>
@@ -117,7 +126,12 @@ const Projects = () => {
             layout
           >
             <AnimatePresence mode="popLayout">
-              {filteredProjects.map((project) => (
+              {filteredProjects.map((project) => {
+                const localizedProject = t(
+                  `projects.items.${project.id}`,
+                );
+
+                return (
                 <motion.article
                   key={project.id}
                   className="project-card"
@@ -132,13 +146,15 @@ const Projects = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="project-card__image-link"
-                    aria-label={`Open ${project.title}`}
+                    aria-label={t("projects.open", {
+                      title: localizedProject.title,
+                    })}
                     whileTap={{ scale: 0.985 }}
                   >
                     <motion.div
                       className="project-card__image-wrapper"
                       initial={{
-                        opacity: 0,
+                        opacity: 1,
                         scale: 0.95,
                       }}
                       whileInView={{
@@ -156,7 +172,7 @@ const Projects = () => {
                     >
                       <OptimizedImage
                         src={project.image}
-                        alt={`${project.title} preview`}
+                        alt={localizedProject.title}
                         className="project-card__image"
                         width="1600"
                         height="900"
@@ -164,8 +180,8 @@ const Projects = () => {
                       />
 
                       <div className="project-card__overlay">
-                        <span>View live site</span>
-                        <span aria-hidden="true">↗</span>
+                        <span>{t("projects.viewLive")}</span>
+                        <span aria-hidden="true">{isRTL ? "↖" : "↗"}</span>
                       </div>
 
                       <span className="project-card__number">
@@ -178,39 +194,52 @@ const Projects = () => {
                     <header className="project-card__header">
                       <div>
                         <p className="project-card__category">
-                          {project.category}
+                          <BidiText>{localizedProject.category}</BidiText>
                         </p>
 
-                        <h2>{project.title}</h2>
+                        <BidiText as="h2">
+                          {localizedProject.title}
+                        </BidiText>
                       </div>
 
-                      <span className="project-card__year">{project.year}</span>
+                      <TechnicalText
+                        as="span"
+                        className="project-card__year"
+                      >
+                        {project.year}
+                      </TechnicalText>
                     </header>
 
                     <p className="project-card__description">
-                      {project.description}
+                      <BidiText>{localizedProject.description}</BidiText>
                     </p>
 
                     <div className="project-card__meta">
                       <div>
-                        <span className="project-card__label">My role</span>
+                        <span className="project-card__label">
+                          {t("projects.role")}
+                        </span>
 
-                        <p>{project.role}</p>
+                        <BidiText as="p">
+                          {localizedProject.role}
+                        </BidiText>
                       </div>
                     </div>
 
                     <ul className="project-card__features">
-                      {project.features.slice(0, 4).map((feature) => (
+                      {localizedProject.features.slice(0, 4).map((feature) => (
                         <li key={feature}>
-                          <span aria-hidden="true">↗</span>
-                          {feature}
+                          <span aria-hidden="true">{isRTL ? "↖" : "↗"}</span>
+                          <BidiText>{feature}</BidiText>
                         </li>
                       ))}
                     </ul>
 
                     <ul className="project-card__technologies">
                       {project.technologies.map((technology) => (
-                        <li key={technology}>{technology}</li>
+                        <li key={technology}>
+                          <TechnicalText>{technology}</TechnicalText>
+                        </li>
                       ))}
                     </ul>
 
@@ -222,18 +251,19 @@ const Projects = () => {
                       whileHover={{ y: -4 }}
                       whileTap={{ scale: 0.96 }}
                     >
-                      <span>Explore project</span>
-                      <span aria-hidden="true">↗</span>
+                      <span>{t("projects.explore")}</span>
+                      <span aria-hidden="true">{isRTL ? "↖" : "↗"}</span>
                     </motion.a>
                   </div>
                 </motion.article>
-              ))}
+                );
+              })}
             </AnimatePresence>
           </motion.div>
 
           {filteredProjects.length === 0 && (
             <p className="projects-empty">
-              No projects are available in this category yet.
+              {t("projects.empty")}
             </p>
           )}
         </div>

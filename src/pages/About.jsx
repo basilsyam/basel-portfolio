@@ -6,10 +6,26 @@ import {
   useTransform,
 } from "framer-motion";
 import { Link } from "react-router-dom";
-import { profile, calculateAge } from "../data/profile";
+import {
+  profile,
+  calculateAge,
+  calculateExperienceYears,
+} from "../data/profile";
+import {
+  FaBriefcase,
+  FaCakeCandles,
+  FaFolderOpen,
+  FaLanguage,
+  FaLaptopCode,
+  FaLocationDot,
+} from "react-icons/fa6";
 import ContactCTA from "../components/ContactCTA/ContactCTA";
 import OptimizedImage from "../components/common/OptimizedImage";
+import TechnicalText from "../components/common/TechnicalText";
+import BidiText from "../components/common/BidiText";
 import useIsMobile from "../hooks/useIsMobile";
+import { useLanguage } from "../context/LanguageContext";
+import { skillIcons } from "../config/contentIcons";
 
 import SplitText from "../animation/SplitText";
 import { smoothEase } from "../animation/variants";
@@ -18,7 +34,7 @@ import "./About.css";
 
 const sectionVariants = {
   hidden: {
-    opacity: 0,
+    opacity: 1,
   },
 
   visible: {
@@ -33,7 +49,7 @@ const sectionVariants = {
 
 const itemVariants = {
   hidden: {
-    opacity: 0,
+    opacity: 1,
     y: 55,
   },
 
@@ -50,7 +66,7 @@ const itemVariants = {
 
 const cardVariants = {
   hidden: {
-    opacity: 0,
+    opacity: 1,
     y: 40,
     scale: 0.96,
   },
@@ -78,6 +94,36 @@ const About = () => {
   const isMobile = useIsMobile();
   const disableParallax = shouldReduceMotion || isMobile;
   const age = calculateAge(profile.birthDate);
+  const experienceYears = calculateExperienceYears(
+    profile.experience.startDate,
+  );
+  const { isRTL, t } = useLanguage();
+  const titleParts = t("about.titleParts");
+  const cvParts = t("about.cvParts");
+  const certificates = [
+    {
+      provider: t("about.certificateOneProvider"),
+      title: t("about.certificateOneTitle"),
+      description: t("about.certificateOneDescription"),
+      icon: FaLanguage,
+    },
+    {
+      provider: t("about.certificateTwoProvider"),
+      title: t("about.certificateTwoTitle"),
+      description: t("about.certificateTwoDescription"),
+      icon: FaLaptopCode,
+    },
+  ];
+  const languageItems = [
+    { name: t("about.arabic"), level: t("about.native") },
+    { name: t("about.english"), level: t("about.advanced") },
+  ];
+  const availabilityItems = [
+    t("about.freelance"),
+    t("about.remoteWork"),
+    t("about.internships"),
+    t("about.fullTime"),
+  ];
 
   const { scrollYProgress: storyScrollProgress } = useScroll({
     target: storyRef,
@@ -93,31 +139,39 @@ const About = () => {
   const profileCards = [
     {
       number: "01",
-      label: "Age",
-      value: `${age} years old`,
-      description: "Automatically updated",
+      label: t("about.age"),
+      value: t("about.yearsOld", { age }),
+      description: t("about.autoUpdated"),
       yellow: true,
+      icon: FaCakeCandles,
     },
     {
       number: "02",
-      label: "Location",
-      value: profile.location,
-      description: "Available for remote work",
+      label: t("about.location"),
+      value: t("hero.location"),
+      description: t("about.remote"),
       yellow: false,
+      icon: FaLocationDot,
     },
     {
       number: "03",
-      label: "Experience",
-      value: `${profile.experience.years}+ years`,
-      description: "Frontend development",
+      label: t("about.experience"),
+      value: t("about.yearsExperience", {
+        years: experienceYears,
+      }),
+      description: t("about.frontendDevelopment"),
       yellow: false,
+      icon: FaBriefcase,
     },
     {
       number: "04",
-      label: "Projects",
-      value: `${profile.experience.projects}+ projects`,
-      description: "Websites and systems",
+      label: t("about.projects"),
+      value: t("about.projectsCount", {
+        projects: profile.experience.projects,
+      }),
+      description: t("about.websitesSystems"),
       yellow: true,
+      icon: FaFolderOpen,
     },
   ];
 
@@ -125,39 +179,38 @@ const About = () => {
     <div className="about-page">
       <motion.section
         className="about-hero"
+        aria-labelledby="about-title"
         variants={sectionVariants}
         initial="hidden"
         animate="visible"
       >
         <div className="about-container">
           <motion.p className="about-section-label" variants={itemVariants}>
-            About me
+            {t("about.eyebrow")}
           </motion.p>
 
           <motion.h1
+            id="about-title"
             className="about-hero__title"
             variants={itemVariants}
-            aria-label="Building meaningful digital experiences."
+            aria-label={t("about.title")}
           >
             <span className="about-title-line about-title-line--dark">
-              <SplitText text="Building meaningful" />
+              <SplitText text={titleParts[0]} />
             </span>
 
             <span className="about-title-line">
-              <SplitText text="digital experiences." />
+              <SplitText text={titleParts[1]} />
             </span>
           </motion.h1>
 
           <motion.div className="about-hero__bottom" variants={itemVariants}>
-            <p>
-              Software Engineer and Frontend Developer based in Gaza,
-              Palestine.
-            </p>
+            <BidiText as="p">{t("about.subtitle")}</BidiText>
 
             <motion.button
               type="button"
               className="about-scroll-button"
-              aria-label="Scroll to my story"
+              aria-label={t("about.scrollStory")}
               onClick={() => scrollToSection("story", shouldReduceMotion)}
               whileHover={
                 shouldReduceMotion ? undefined : { y: 7 }
@@ -181,6 +234,7 @@ const About = () => {
         ref={storyRef}
         className="about-story"
         id="story"
+        aria-labelledby="story-title"
         variants={sectionVariants}
         initial="hidden"
         whileInView="visible"
@@ -194,7 +248,7 @@ const About = () => {
             whileHover={
               shouldReduceMotion
                 ? undefined
-                : { scale: 1.015, rotate: -1 }
+                : { scale: 1.015, rotate: isRTL ? 1 : -1 }
             }
             whileTap={
               shouldReduceMotion ? undefined : { scale: 0.97, rotate: 0 }
@@ -206,7 +260,7 @@ const About = () => {
             <div className="about-story__placeholder">
               <OptimizedImage
                 src={`${process.env.PUBLIC_URL}/images/basel-hero.jpg`}
-                alt={profile.shortName}
+                alt={t("footer.name")}
                 width="1672"
                 height="941"
                 loading="lazy"
@@ -215,31 +269,28 @@ const About = () => {
           </motion.div>
 
           <motion.div className="about-story__content" variants={itemVariants}>
-            <p className="about-section-label">My story</p>
+            <p className="about-section-label">{t("about.storyLabel")}</p>
 
-            <h2 aria-label="I turn ideas into fast, responsive and user-friendly digital products.">
-              <SplitText text="I turn ideas into fast, responsive and user-friendly digital products." />
+            <h2
+              id="story-title"
+              aria-label={t("about.storyTitle")}
+            >
+              <SplitText text={t("about.storyTitle")} />
             </h2>
 
             <div className="about-story__description">
+              <BidiText as="p">
+                {t("about.storyP1", {
+                  name: t("footer.name"),
+                  years: experienceYears,
+                })}
+              </BidiText>
               <p>
-                I’m {profile.name}, a Software Engineer and Frontend
-                Developer with {profile.experience.years} years of
-                experience building modern websites and practical
-                software solutions.
+                {t("about.storyP2", {
+                  projects: profile.experience.projects,
+                })}
               </p>
-
-              <p>
-                I have developed more than {profile.experience.projects}{" "}
-                projects, including landing pages, electronic invitation
-                platforms and management systems for stores and
-                businesses.
-              </p>
-
-              <p>
-                I focus on responsive design, accessibility, usability
-                and clean, reusable code.
-              </p>
+              <p>{t("about.storyP3")}</p>
             </div>
           </motion.div>
         </div>
@@ -254,41 +305,68 @@ const About = () => {
       >
         <div className="about-container">
           <motion.div className="about-heading" variants={itemVariants}>
-            <p className="about-section-label">Profile</p>
-            <h2>A little more about me.</h2>
+            <p className="about-section-label">{t("about.profile")}</p>
+            <h2>{t("about.profileTitle")}</h2>
           </motion.div>
 
           <div className="about-information__grid">
-            {profileCards.map((card) => (
-              <motion.article
-                className={`about-info-card ${
-                  card.yellow ? "about-info-card--yellow" : ""
-                }`}
-                key={card.number}
-                variants={cardVariants}
-                whileHover={
-                  shouldReduceMotion
-                    ? undefined
-                    : { y: -12, rotate: card.yellow ? -1 : 1 }
-                }
-                whileTap={
-                  shouldReduceMotion
-                    ? undefined
-                    : { scale: 0.96, y: 0, rotate: 0 }
-                }
-                transition={{
-                  duration: 0.3,
-                }}
-              >
-                <span className="about-info-card__number">{card.number}</span>
+            {profileCards.map((card) => {
+              const CardIcon = card.icon;
 
-                <div className="about-info-card__content">
-                  <p>{card.label}</p>
-                  <strong>{card.value}</strong>
-                  <small>{card.description}</small>
-                </div>
-              </motion.article>
-            ))}
+              return (
+                <motion.article
+                  className={`about-info-card ${
+                    card.yellow ? "about-info-card--yellow" : ""
+                  }`}
+                  key={card.number}
+                  variants={cardVariants}
+                  whileHover={
+                    shouldReduceMotion
+                      ? undefined
+                      : {
+                          y: -12,
+                          rotate:
+                            (card.yellow ? -1 : 1) *
+                            (isRTL ? -1 : 1),
+                        }
+                  }
+                  whileTap={
+                    shouldReduceMotion
+                      ? undefined
+                      : { scale: 0.96, y: 0, rotate: 0 }
+                  }
+                  transition={{
+                    duration: 0.3,
+                  }}
+                >
+                  <div className="about-info-card__top">
+                    <span className="about-info-card__number">
+                      {card.number}
+                    </span>
+                    <motion.span
+                      className="about-info-card__icon"
+                      aria-hidden="true"
+                      whileHover={
+                        shouldReduceMotion
+                          ? undefined
+                          : {
+                              scale: 1.08,
+                              rotate: isRTL ? -6 : 6,
+                            }
+                      }
+                    >
+                      <CardIcon />
+                    </motion.span>
+                  </div>
+
+                  <div className="about-info-card__content">
+                    <p>{card.label}</p>
+                    <strong>{card.value}</strong>
+                    <small>{card.description}</small>
+                  </div>
+                </motion.article>
+              );
+            })}
           </div>
         </div>
       </motion.section>
@@ -302,12 +380,10 @@ const About = () => {
       >
         <div className="about-container">
           <motion.div className="about-heading" variants={itemVariants}>
-            <p className="about-section-label">Education</p>
+            <p className="about-section-label">{t("about.education")}</p>
 
             <h2>
-              Learning, building
-              <br />
-              and improving.
+              {t("about.educationTitle")}
             </h2>
           </motion.div>
 
@@ -318,14 +394,16 @@ const About = () => {
             whileTap={shouldReduceMotion ? undefined : { scale: 0.98, x: 0 }}
           >
             <div className="education-card__year">
-              <span>Expected graduation</span>
-              <strong>{profile.education.graduationYear}</strong>
+              <span>{t("about.graduation")}</span>
+              <TechnicalText as="strong">
+                {profile.education.graduationYear}
+              </TechnicalText>
             </div>
 
             <div className="education-card__content">
-              <p>{profile.education.university}</p>
-              <h3>{profile.education.major}</h3>
-              <span>Bachelor’s Degree</span>
+              <p>{t("about.university")}</p>
+              <h3>{t("about.major")}</h3>
+              <span>{t("about.degree")}</span>
             </div>
           </motion.article>
         </div>
@@ -340,32 +418,46 @@ const About = () => {
       >
         <div className="about-container">
           <motion.div className="about-heading" variants={itemVariants}>
-            <p className="about-section-label">Certificates</p>
-            <h2>Continuous learning.</h2>
+            <p className="about-section-label">{t("about.certificates")}</p>
+            <h2>{t("about.certificatesTitle")}</h2>
           </motion.div>
 
           <div className="certificate-grid">
-            {profile.certificates.map((certificate, index) => (
-              <motion.article
-                className="certificate-card"
-                key={certificate.title}
-                variants={cardVariants}
-                whileHover={shouldReduceMotion ? undefined : { y: -10 }}
-                whileTap={
-                  shouldReduceMotion ? undefined : { scale: 0.96, y: 0 }
-                }
-              >
-                <span className="certificate-card__number">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
+            {certificates.map((certificate, index) => {
+              const CertificateIcon = certificate.icon;
 
-                <div>
-                  <p>{certificate.provider}</p>
-                  <h3>{certificate.title}</h3>
-                  <span>{certificate.description}</span>
-                </div>
-              </motion.article>
-            ))}
+              return (
+                <motion.article
+                  className="certificate-card"
+                  key={certificate.title}
+                  variants={cardVariants}
+                  whileHover={shouldReduceMotion ? undefined : { y: -10 }}
+                  whileTap={
+                    shouldReduceMotion
+                      ? undefined
+                      : { scale: 0.96, y: 0 }
+                  }
+                >
+                  <div className="certificate-card__top">
+                    <span className="certificate-card__number">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span
+                      className="certificate-card__icon"
+                      aria-hidden="true"
+                    >
+                      <CertificateIcon />
+                    </span>
+                  </div>
+
+                  <div>
+                    <p>{certificate.provider}</p>
+                    <h3>{certificate.title}</h3>
+                    <span>{certificate.description}</span>
+                  </div>
+                </motion.article>
+              );
+            })}
           </div>
         </div>
       </motion.section>
@@ -379,35 +471,44 @@ const About = () => {
       >
         <div className="about-container">
           <motion.div className="about-heading" variants={itemVariants}>
-            <p className="about-section-label">Technical skills</p>
-            <h2>Tools I use to bring ideas to life.</h2>
+            <p className="about-section-label">{t("about.skills")}</p>
+            <h2>{t("about.skillsTitle")}</h2>
           </motion.div>
 
           <div className="about-skills__grid">
-            {profile.skills.map((skill, index) => (
-              <motion.article
-                className="skill-box"
-                key={skill}
-                variants={cardVariants}
-                whileHover={
-                  shouldReduceMotion
-                    ? undefined
-                    : {
-                        y: -8,
-                        scale: 1.03,
-                        rotate: index % 2 === 0 ? -1 : 1,
-                      }
-                }
-                whileTap={
-                  shouldReduceMotion
-                    ? undefined
-                    : { scale: 0.94, y: 0, rotate: 0 }
-                }
-              >
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <h3>{skill}</h3>
-              </motion.article>
-            ))}
+            {profile.skills.map((skill, index) => {
+              const SkillIcon = skillIcons[skill];
+
+              return (
+                <motion.article
+                  className="skill-box"
+                  key={skill}
+                  variants={cardVariants}
+                  whileHover={
+                    shouldReduceMotion
+                      ? undefined
+                      : {
+                          y: -8,
+                          scale: 1.03,
+                          rotate: index % 2 === 0 ? -1 : 1,
+                        }
+                  }
+                  whileTap={
+                    shouldReduceMotion
+                      ? undefined
+                      : { scale: 0.94, y: 0, rotate: 0 }
+                  }
+                >
+                  <div className="skill-box__top">
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    <span className="skill-box__icon" aria-hidden="true">
+                      <SkillIcon />
+                    </span>
+                  </div>
+                  <TechnicalText as="h3">{skill}</TechnicalText>
+                </motion.article>
+              );
+            })}
           </div>
         </div>
       </motion.section>
@@ -421,9 +522,9 @@ const About = () => {
       >
         <div className="about-extra__grid">
           <motion.div className="about-extra__column" variants={itemVariants}>
-            <p className="about-section-label">Languages</p>
+            <p className="about-section-label">{t("about.languages")}</p>
 
-            {profile.languages.map((language) => (
+            {languageItems.map((language) => (
               <motion.div
                 className="about-extra__row"
                 key={language.name}
@@ -437,9 +538,9 @@ const About = () => {
           </motion.div>
 
           <motion.div className="about-extra__column" variants={itemVariants}>
-            <p className="about-section-label">Available for</p>
+            <p className="about-section-label">{t("about.availableFor")}</p>
 
-            {profile.availability.map((item) => (
+            {availabilityItems.map((item) => (
               <motion.div
                 className="about-extra__row"
                 key={item}
@@ -450,7 +551,7 @@ const About = () => {
 
                 <span className="availability-status">
                   <i />
-                  Available
+                  {t("about.available")}
                 </span>
               </motion.div>
             ))}
@@ -467,12 +568,12 @@ const About = () => {
       >
         <div className="about-container">
           <motion.div className="about-cv__content" variants={itemVariants}>
-            <p className="about-section-label">Curriculum vitae</p>
+            <p className="about-section-label">{t("about.cv")}</p>
 
             <h2>
-              Want to know
+              {cvParts[0]}
               <br />
-              more about me?
+              {cvParts[1]}
             </h2>
 
             <div className="about-cv__actions">
@@ -480,10 +581,10 @@ const About = () => {
                 type="button"
                 className="about-cv__button about-cv__button--disabled"
                 disabled
-                title="CV is being prepared"
+                title={t("common.comingSoon")}
               >
-                <span>Download CV</span>
-                <small>Coming soon</small>
+                <span>{t("about.downloadCv")}</span>
+                <small>{t("common.comingSoon")}</small>
               </button>
 
               <motion.div
@@ -491,7 +592,7 @@ const About = () => {
                 whileTap={shouldReduceMotion ? undefined : { scale: 0.92, y: 0 }}
               >
                 <Link to="/contact" className="about-cv__link">
-                  Contact me ↗
+                  {t("common.contactMe")} ↗
                 </Link>
               </motion.div>
             </div>

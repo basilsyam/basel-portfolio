@@ -12,6 +12,7 @@ import { smoothEase } from "../../animation/variants";
 import { navigationLinks } from "../../config/site";
 import { prefetchPage } from "../../config/pageLoaders";
 import { useAppContext } from "../../context/AppContext";
+import { useLanguage } from "../../context/LanguageContext";
 import useIsMobile from "../../hooks/useIsMobile";
 import "./Navbar.css";
 
@@ -75,6 +76,7 @@ const Navbar = () => {
   const location = useLocation();
   const isMobile = useIsMobile();
   const shouldReduceMotion = useReducedMotion();
+  const { isRTL, t, toggleLanguage } = useLanguage();
 
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -125,11 +127,23 @@ const Navbar = () => {
     };
   }, [isMobile, isMenuOpen]);
 
+  const languageButton = (modifier = "") => (
+    <motion.button
+      type="button"
+      className={`navbar__language-button ${modifier}`.trim()}
+      onClick={toggleLanguage}
+      aria-label={t("language.switchLabel")}
+      whileTap={shouldReduceMotion ? undefined : { scale: 0.92 }}
+    >
+      <span dir="ltr">{t("language.switch")}</span>
+    </motion.button>
+  );
+
   const navigation = (
     <motion.nav
       id="main-navigation"
       className="navbar__navigation"
-      aria-label="Main navigation"
+      aria-label={t("navigation.label")}
       data-lenis-prevent
       variants={isMobile ? menuVariants : undefined}
       initial={
@@ -177,7 +191,7 @@ const Navbar = () => {
           >
             {({ isActive }) => (
               <>
-                <span>{label}</span>
+                <span>{t(`navigation.${label.toLowerCase()}`)}</span>
 
                 {isActive && (
                   <motion.span
@@ -195,6 +209,8 @@ const Navbar = () => {
           </NavLink>
         </motion.div>
       ))}
+
+      {!isMobile && languageButton()}
     </motion.nav>
   );
 
@@ -234,7 +250,7 @@ const Navbar = () => {
             to="/"
             className="navbar__logo"
             onClick={closeMenu}
-            aria-label="Basel portfolio home"
+            aria-label={t("navigation.portfolioHome")}
           >
             <motion.span
               className="navbar__logo-circle"
@@ -252,44 +268,49 @@ const Navbar = () => {
               ©
             </motion.span>
 
-            <span>Code by Basel</span>
+            <span>{t("navigation.logo")}</span>
           </NavLink>
         </motion.div>
 
         {!isMobile && navigation}
 
-        <motion.button
-          type="button"
-          className={`menu-button ${
-            isMenuOpen
-              ? "menu-button--active"
-              : ""
-          }`}
-          onClick={toggleMenu}
-          aria-label={
-            isMenuOpen
-              ? "Close navigation menu"
-              : "Open navigation menu"
-          }
-          aria-expanded={isMenuOpen}
-          aria-controls="main-navigation"
-          whileTap={
-            shouldReduceMotion
-              ? undefined
-              : {
-                  scale: 0.86,
-                  rotate: 4,
-                }
-          }
-          transition={{
-            type: "spring",
-            stiffness: 450,
-            damping: 22,
-          }}
-        >
-          <span />
-          <span />
-        </motion.button>
+        <div className="navbar__mobile-controls">
+          {isMobile &&
+            languageButton("navbar__language-button--mobile")}
+
+          <motion.button
+            type="button"
+            className={`menu-button ${
+              isMenuOpen
+                ? "menu-button--active"
+                : ""
+            }`}
+            onClick={toggleMenu}
+            aria-label={
+              isMenuOpen
+                ? t("navigation.closeMenu")
+                : t("navigation.openMenu")
+            }
+            aria-expanded={isMenuOpen}
+            aria-controls="main-navigation"
+            whileTap={
+              shouldReduceMotion
+                ? undefined
+                : {
+                    scale: 0.86,
+                    rotate: isRTL ? -4 : 4,
+                  }
+            }
+            transition={{
+              type: "spring",
+              stiffness: 450,
+              damping: 22,
+            }}
+          >
+            <span />
+            <span />
+          </motion.button>
+        </div>
       </motion.header>
 
       <AnimatePresence>
@@ -298,7 +319,7 @@ const Navbar = () => {
             <motion.button
               type="button"
               className="navbar__backdrop"
-              aria-label="Close navigation menu"
+              aria-label={t("navigation.closeMenu")}
               onClick={closeMenu}
               initial={
                 shouldReduceMotion
