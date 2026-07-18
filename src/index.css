@@ -283,3 +283,13 @@ img {
     animation: none;
   }
 }
+
+@media (max-width: 768px), (pointer: coarse) {
+  .hero__availability,
+  .about-info-card,
+  .certificate-card,
+  .service-card {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}

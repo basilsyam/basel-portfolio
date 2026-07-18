@@ -255,8 +255,8 @@
   .navbar__language-button--mobile {
     position: relative;
     z-index: 1002;
-    width: 46px;
-    min-width: 46px;
+    width: 72px;
+    min-width: 72px;
     height: 46px;
     min-height: 46px;
     margin-top: 0;

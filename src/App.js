@@ -16,16 +16,31 @@ const App = () => {
   useEffect(() => {
     let idleCallbackId;
     let timeoutId;
+    let isCancelled = false;
 
-    if ("requestIdleCallback" in window) {
-      idleCallbackId = window.requestIdleCallback(prefetchAllPages, {
-        timeout: 2500,
-      });
+    const prefetchWhenIdle = () => {
+      timeoutId = window.setTimeout(() => {
+        if (isCancelled) return;
+
+        if ("requestIdleCallback" in window) {
+          idleCallbackId = window.requestIdleCallback(prefetchAllPages, {
+            timeout: 3000,
+          });
+        } else {
+          prefetchAllPages();
+        }
+      }, 4000);
+    };
+
+    if (document.readyState === "complete") {
+      prefetchWhenIdle();
     } else {
-      timeoutId = window.setTimeout(prefetchAllPages, 1200);
+      window.addEventListener("load", prefetchWhenIdle, { once: true });
     }
 
     return () => {
+      isCancelled = true;
+      window.removeEventListener("load", prefetchWhenIdle);
       if (idleCallbackId !== undefined) {
         window.cancelIdleCallback(idleCallbackId);
       }

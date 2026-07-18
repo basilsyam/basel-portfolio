@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import Lenis from "lenis";
 import "lenis/dist/lenis.css";
 
 const SmoothScroll = ({ children }) => {
@@ -12,8 +11,14 @@ const SmoothScroll = ({ children }) => {
     );
 
     let lenis = null;
+    let idleCallbackId;
+    let loadTimerId;
+    let initializationVersion = 0;
+    let isUnmounted = false;
 
-    const createLenis = () => {
+    const createLenis = async () => {
+      const currentVersion = ++initializationVersion;
+
       // تنظيف النسخة السابقة إن وجدت
       if (lenis) {
         lenis.destroy();
@@ -22,6 +27,17 @@ const SmoothScroll = ({ children }) => {
 
       // Native scrolling is faster and more predictable on touch devices.
       if (reducedMotionQuery.matches || mobileQuery.matches) {
+        return;
+      }
+
+      const { default: Lenis } = await import("lenis");
+
+      if (
+        isUnmounted ||
+        currentVersion !== initializationVersion ||
+        reducedMotionQuery.matches ||
+        mobileQuery.matches
+      ) {
         return;
       }
 
@@ -45,6 +61,20 @@ const SmoothScroll = ({ children }) => {
       });
     };
 
+    const scheduleLenis = () => {
+      loadTimerId = window.setTimeout(() => {
+        if (isUnmounted) return;
+
+        if ("requestIdleCallback" in window) {
+          idleCallbackId = window.requestIdleCallback(createLenis, {
+            timeout: 2000,
+          });
+        } else {
+          createLenis();
+        }
+      }, 700);
+    };
+
     const handleVisibilityChange = () => {
       if (!lenis) return;
 
@@ -55,7 +85,11 @@ const SmoothScroll = ({ children }) => {
       }
     };
 
-    createLenis();
+    if (document.readyState === "complete") {
+      scheduleLenis();
+    } else {
+      window.addEventListener("load", scheduleLenis, { once: true });
+    }
 
     reducedMotionQuery.addEventListener("change", createLenis);
     mobileQuery.addEventListener("change", createLenis);
@@ -66,6 +100,13 @@ const SmoothScroll = ({ children }) => {
     );
 
     return () => {
+      isUnmounted = true;
+      initializationVersion += 1;
+      window.removeEventListener("load", scheduleLenis);
+      window.clearTimeout(loadTimerId);
+      if (idleCallbackId !== undefined) {
+        window.cancelIdleCallback(idleCallbackId);
+      }
       reducedMotionQuery.removeEventListener(
         "change",
         createLenis
