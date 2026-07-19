@@ -27,11 +27,11 @@ const curtainVariants = {
     pointerEvents: "none",
   },
   enter: {
-    scaleY: 0,
+    scaleY: [1, 1, 0],
     transformOrigin: "top",
     transition: {
-      duration: 0.46,
-      delay: 0.06,
+      duration: 0.82,
+      times: [0, 0.34, 1],
       ease: curtainEase,
     },
     transitionEnd: {
@@ -46,11 +46,11 @@ const labelVariants = {
     y: 0,
   },
   enter: {
-    opacity: 0,
-    y: -8,
+    opacity: [1, 1, 0],
+    y: [0, 0, -8],
     transition: {
-      duration: 0.16,
-      delay: 0.44,
+      duration: 0.72,
+      times: [0, 0.58, 1],
       ease: smoothEase,
     },
   },
@@ -72,7 +72,7 @@ const PageTransition = ({
 
     const safetyTimer = window.setTimeout(() => {
       setIsTransitionComplete(true);
-    }, 1200);
+    }, 1400);
 
     return () => window.clearTimeout(safetyTimer);
   }, [isTransitionComplete]);

@@ -3,7 +3,7 @@
     "title": "Basel Seyam | Software Engineer",
     "description": "Basel Seyam's portfolio — software engineering, frontend development, projects and contact information."
   },
-  "language": { "switch": "العربية", "switchLabel": "Switch language to Arabic" },
+  "language": { "switch": "عربي", "switchLabel": "Switch language to Arabic" },
   "navigation": {
     "label": "Main navigation",
     "home": "Home",

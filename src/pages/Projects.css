@@ -382,8 +382,9 @@
 
 @media (max-width: 600px) {
   .projects-hero {
-    min-height: 100svh;
+    min-height: auto;
     padding: 120px 16px 65px;
+    align-items: flex-start;
   }
 
   .projects-hero__title {
