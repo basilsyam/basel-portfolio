@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/basel-portfolio/static/css/main.6d82c1a0.css",
-    "main.js": "/basel-portfolio/static/js/main.07d95a56.js",
+    "main.js": "/basel-portfolio/static/js/main.3a5a90cc.js",
     "static/css/732.27423707.chunk.css": "/basel-portfolio/static/css/732.27423707.chunk.css",
     "static/js/732.d51f51b9.chunk.js": "/basel-portfolio/static/js/732.d51f51b9.chunk.js",
     "static/css/915.c12ea320.chunk.css": "/basel-portfolio/static/css/915.c12ea320.chunk.css",
@@ -18,6 +18,6 @@
   },
   "entrypoints": [
     "static/css/main.6d82c1a0.css",
-    "static/js/main.07d95a56.js"
+    "static/js/main.3a5a90cc.js"
   ]
 }
