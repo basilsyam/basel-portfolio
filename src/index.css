@@ -133,6 +133,7 @@ html[dir="rtl"] .chatbot__identity i {
 }
 
 html {
+  font-size: 87.5%;
   scroll-behavior: smooth;
   scrollbar-color: var(--color-primary) var(--color-dark);
   scrollbar-width: thin;

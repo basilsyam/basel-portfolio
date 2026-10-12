@@ -9,6 +9,7 @@ const OptimizedImage = ({
   height,
   loading = "lazy",
   fetchPriority,
+  fallback,
   onLoad,
   onError,
   ...imageProps
@@ -54,6 +55,9 @@ const OptimizedImage = ({
         onLoad={handleLoad}
         onError={handleError}
       />
+      {fallback && (
+        <span className="optimized-image__fallback">{fallback}</span>
+      )}
     </span>
   );
 };

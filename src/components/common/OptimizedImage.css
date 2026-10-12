@@ -1,9 +1,24 @@
 .optimized-image__container {
+  position: relative;
   width: 100%;
   height: 100%;
   display: block;
   overflow: hidden;
   background: #d7d2cb;
+}
+
+.optimized-image__fallback {
+  position: absolute;
+  inset: 0;
+  display: none;
+}
+
+.optimized-image__container--error .optimized-image__fallback {
+  display: block;
+}
+
+.optimized-image__container--error .optimized-image:has(+ .optimized-image__fallback) {
+  visibility: hidden;
 }
 
 .optimized-image {

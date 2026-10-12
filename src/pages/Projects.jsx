@@ -130,6 +130,7 @@ const Projects = () => {
                 const localizedProject = t(
                   `projects.items.${project.id}`,
                 );
+                const hasLiveUrl = Boolean(project.liveUrl);
 
                 return (
                 <motion.article
@@ -143,12 +144,18 @@ const Projects = () => {
                 >
                   <motion.a
                     href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    target={hasLiveUrl ? "_blank" : undefined}
+                    rel={hasLiveUrl ? "noopener noreferrer" : undefined}
                     className="project-card__image-link"
-                    aria-label={t("projects.open", {
-                      title: localizedProject.title,
-                    })}
+                    aria-label={
+                      hasLiveUrl
+                        ? t("projects.open", {
+                            title: localizedProject.title,
+                          })
+                        : t("common.comingSoon")
+                    }
+                    aria-disabled={!hasLiveUrl}
+                    onClick={hasLiveUrl ? undefined : (event) => event.preventDefault()}
                     whileTap={{ scale: 0.985 }}
                   >
                     <motion.div
@@ -177,10 +184,24 @@ const Projects = () => {
                         width="1600"
                         height="900"
                         loading="lazy"
+                        fallback={
+                        <span
+                          className="project-card__image-placeholder"
+                          aria-hidden="true"
+                        >
+                          <span aria-hidden="true">PWA</span>
+                          <strong>{localizedProject.title}</strong>
+                          <small>{t("projects.imageComingSoon")}</small>
+                        </span>
+                        }
                       />
 
                       <div className="project-card__overlay">
-                        <span>{t("projects.viewLive")}</span>
+                        <span>
+                          {hasLiveUrl
+                            ? t("projects.viewLive")
+                            : t("common.comingSoon")}
+                        </span>
                         <span aria-hidden="true">{isRTL ? "↖" : "↗"}</span>
                       </div>
 
@@ -245,13 +266,21 @@ const Projects = () => {
 
                     <motion.a
                       href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="project-card__button"
-                      whileHover={{ y: -4 }}
-                      whileTap={{ scale: 0.96 }}
+                      target={hasLiveUrl ? "_blank" : undefined}
+                      rel={hasLiveUrl ? "noopener noreferrer" : undefined}
+                      className={`project-card__button ${
+                        hasLiveUrl ? "" : "project-card__button--disabled"
+                      }`.trim()}
+                      aria-disabled={!hasLiveUrl}
+                      onClick={hasLiveUrl ? undefined : (event) => event.preventDefault()}
+                      whileHover={hasLiveUrl ? { y: -4 } : undefined}
+                      whileTap={hasLiveUrl ? { scale: 0.96 } : undefined}
                     >
-                      <span>{t("projects.explore")}</span>
+                      <span>
+                        {hasLiveUrl
+                          ? t("projects.explore")
+                          : t("common.comingSoon")}
+                      </span>
                       <span aria-hidden="true">{isRTL ? "↖" : "↗"}</span>
                     </motion.a>
                   </div>
